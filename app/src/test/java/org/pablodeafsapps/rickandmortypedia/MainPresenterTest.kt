@@ -8,7 +8,7 @@ import org.mockito.Mockito.verify
 
 class MainPresenterTest {
 
-    // Subject Under Test
+    // Subject Under org.pablodeafsapps.rickandmortypedia.Test
     private lateinit var sut: MainPresenter
 
     @Before
