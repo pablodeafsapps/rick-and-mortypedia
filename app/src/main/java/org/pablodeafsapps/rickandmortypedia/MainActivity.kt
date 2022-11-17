@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity(), Mvp.View {
 
         val buttonRequest: Button = findViewById(R.id.button_coroutines)
         buttonRequest.setOnClickListener { mainPresenter.onLaunchRequestOptionSelected() }
+
+        findViewById<Button>(R.id.button_parallel_coroutines).apply {
+            setOnClickListener { mainPresenter.onLaunchSeveralRequestsOptionSelected() }
+        }
     }
 
 }

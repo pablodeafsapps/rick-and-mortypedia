@@ -11,9 +11,8 @@ import kotlin.coroutines.CoroutineContext
 class MainPresenter(val mainView: Mvp.View) : Mvp.Presenter, CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
-    private var job: Job? = null
-
     var greetings: String? = null
+    private var job: Job? = null
     private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
     private val charactersService: CharactersService by lazy { retrofitInstance.create(CharactersService::class.java) }
 
@@ -35,6 +34,24 @@ class MainPresenter(val mainView: Mvp.View) : Mvp.Presenter, CoroutineScope {
                 println(e.printStackTrace())
             }
         }
+    }
+
+    override fun onLaunchSeveralRequestsOptionSelected() {
+        launch {
+            val a: Deferred<CharactersDto?> = async(Dispatchers.IO) {
+                Thread.sleep(5_000)
+                println("${Thread.currentThread().name}-a")
+                charactersService.getAllCharactersList()
+            }
+            val b: Deferred<CharactersDto?> = async(Dispatchers.IO) {
+                println(Thread.currentThread().name)
+                charactersService.getAllCharactersList()
+            }
+
+            println("${Thread.currentThread().name}-launch")
+            println((a.await()?.info?.count ?: 0) + (b.await()?.info?.pages ?: 0))
+        }
+
     }
 
     override fun onViewPaused() {
