@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity(), Mvp.View {
     private fun initViews() {
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener { mainPresenter.onClickmeOptionSelected(num = Math.random()) }
+
+        val buttonRequest: Button = findViewById(R.id.button_coroutines)
+        buttonRequest.setOnClickListener { mainPresenter.onLaunchRequestOptionSelected() }
     }
 
 }
