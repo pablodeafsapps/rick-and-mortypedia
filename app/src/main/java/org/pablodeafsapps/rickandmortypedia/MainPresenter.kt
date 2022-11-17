@@ -4,17 +4,14 @@ import kotlinx.coroutines.*
 import org.pablodeafsapps.rickandmortypedia.data.api.CharactersService
 import org.pablodeafsapps.rickandmortypedia.data.model.CharactersDto
 import org.pablodeafsapps.rickandmortypedia.data.utils.getRetrofitInstance
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.CoroutineContext
 
 class MainPresenter(val mainView: Mvp.View) : Mvp.Presenter, CoroutineScope {
 
-    private val job = Job()
-    override val coroutineContext: CoroutineContext = job + Dispatchers.Main
+    override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
+    private var job: Job? = null
 
     var greetings: String? = null
     private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
@@ -30,7 +27,7 @@ class MainPresenter(val mainView: Mvp.View) : Mvp.Presenter, CoroutineScope {
     }
 
     override fun onLaunchRequestOptionSelected() {
-        launch {
+        job = launch {
             try {
                 val response: CharactersDto? = charactersService.getAllCharactersList()
                 println(response?.toString())
@@ -38,6 +35,10 @@ class MainPresenter(val mainView: Mvp.View) : Mvp.Presenter, CoroutineScope {
                 println(e.printStackTrace())
             }
         }
+    }
+
+    override fun onViewPaused() {
+        job?.cancel()
     }
 
     private fun anotherFun(): String = "Hello!"

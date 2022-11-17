@@ -17,6 +17,8 @@ interface Mvp {
 
         fun onLaunchRequestOptionSelected()
 
+        fun onViewPaused()
+
     }
 
 }

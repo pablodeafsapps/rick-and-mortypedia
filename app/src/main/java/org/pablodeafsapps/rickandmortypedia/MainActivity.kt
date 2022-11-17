@@ -16,6 +16,11 @@ class MainActivity : AppCompatActivity(), Mvp.View {
         initViews()
     }
 
+    override fun onPause() {
+        super.onPause()
+        mainPresenter.onViewPaused()
+    }
+
     override fun showMessage() {
         Toast.makeText(this, "Button clicked!", Toast.LENGTH_SHORT).show()
     }
