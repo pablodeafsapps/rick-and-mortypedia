@@ -1,6 +1,6 @@
-package org.pablodeafsapps.rickandmortypedia.data.api
+package org.pablodeafsapps.rickandmortypedia.character.data.api
 
-import org.pablodeafsapps.rickandmortypedia.data.model.CharactersDto
+import org.pablodeafsapps.rickandmortypedia.character.data.model.CharactersDto
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
