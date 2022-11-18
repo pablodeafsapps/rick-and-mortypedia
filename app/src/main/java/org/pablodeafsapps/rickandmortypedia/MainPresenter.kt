@@ -1,16 +1,20 @@
 package org.pablodeafsapps.rickandmortypedia
 
+import kotlinx.coroutines.*
 import org.pablodeafsapps.rickandmortypedia.data.api.CharactersService
 import org.pablodeafsapps.rickandmortypedia.data.model.CharactersDto
 import org.pablodeafsapps.rickandmortypedia.data.utils.getRetrofitInstance
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.coroutines.CoroutineContext
 
-class MainPresenter(val mainView: Mvp.View) : Mvp.Presenter {
+class MainPresenter(val mainView: Mvp.View) : Mvp.Presenter, CoroutineScope {
 
+    override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
     var greetings: String? = null
+    private var job: Job? = null
+    private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
+    private val charactersService: CharactersService by lazy { retrofitInstance.create(CharactersService::class.java) }
 
     override fun onClickmeOptionSelected(num: Double) {
         greetings = anotherFun()
@@ -19,27 +23,40 @@ class MainPresenter(val mainView: Mvp.View) : Mvp.Presenter {
         } else {
             mainView.showLogMessage()
         }
-
-        val charactersCall: Call<CharactersDto?> = getRetrofitInstance(converterFactory = GsonConverterFactory.create())
-            .create(CharactersService::class.java)
-            .getAllCharactersList()
-
-        charactersCall.enqueue(object : Callback<CharactersDto?> {
-            override fun onResponse(
-                call: Call<CharactersDto?>,
-                response: Response<CharactersDto?>
-            ) {
-                Thread.sleep(500)
-                println(response.body()?.toString())
-            }
-
-            override fun onFailure(call: Call<CharactersDto?>, t: Throwable) {
-                println("Oh no!")
-            }
-
-        })
     }
 
+    override fun onLaunchRequestOptionSelected() {
+        job = launch {
+            try {
+                val response: CharactersDto? = charactersService.getAllCharactersList()
+                println(response?.toString())
+            } catch (e: Exception) {
+                println(e.printStackTrace())
+            }
+        }
+    }
+
+    override fun onLaunchSeveralRequestsOptionSelected() {
+        launch {
+            val a: Deferred<CharactersDto?> = async(Dispatchers.IO) {
+                Thread.sleep(5_000)
+                println("${Thread.currentThread().name}-a")
+                charactersService.getAllCharactersList()
+            }
+            val b: Deferred<CharactersDto?> = async(Dispatchers.IO) {
+                println(Thread.currentThread().name)
+                charactersService.getAllCharactersList()
+            }
+
+            println("${Thread.currentThread().name}-launch")
+            println((a.await()?.info?.count ?: 0) + (b.await()?.info?.pages ?: 0))
+        }
+
+    }
+
+    override fun onViewPaused() {
+        job?.cancel()
+    }
 
     private fun anotherFun(): String = "Hello!"
 

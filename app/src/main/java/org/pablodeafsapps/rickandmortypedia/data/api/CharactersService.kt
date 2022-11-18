@@ -8,6 +8,6 @@ import retrofit2.http.Query
 interface CharactersService {
 
     @GET("character")
-    fun getAllCharactersList(@Query("page") page: Int = 25): Call<CharactersDto?>
+    suspend fun getAllCharactersList(@Query("page") page: Int = 1): CharactersDto?
 
 }

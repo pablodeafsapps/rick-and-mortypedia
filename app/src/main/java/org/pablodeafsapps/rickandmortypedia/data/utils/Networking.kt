@@ -5,7 +5,6 @@ import retrofit2.Retrofit
 
 private const val DEFAULT_BASE_URL: String = "https://rickandmortyapi.com/api/"
 
-fun getRetrofitInstance(baseUrl: String = DEFAULT_BASE_URL, converterFactory: Converter.Factory) = Retrofit.Builder()
-    .baseUrl(baseUrl)
-    .addConverterFactory(converterFactory)
-    .build()
+fun getRetrofitInstance(
+    baseUrl: String = DEFAULT_BASE_URL, converterFactory: Converter.Factory
+): Retrofit = Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(converterFactory).build()

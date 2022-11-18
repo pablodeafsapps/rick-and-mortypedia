@@ -16,6 +16,11 @@ class MainActivity : AppCompatActivity(), Mvp.View {
         initViews()
     }
 
+    override fun onPause() {
+        super.onPause()
+        mainPresenter.onViewPaused()
+    }
+
     override fun showMessage() {
         Toast.makeText(this, "Button clicked!", Toast.LENGTH_SHORT).show()
     }
@@ -23,6 +28,13 @@ class MainActivity : AppCompatActivity(), Mvp.View {
     private fun initViews() {
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener { mainPresenter.onClickmeOptionSelected(num = Math.random()) }
+
+        val buttonRequest: Button = findViewById(R.id.button_coroutines)
+        buttonRequest.setOnClickListener { mainPresenter.onLaunchRequestOptionSelected() }
+
+        findViewById<Button>(R.id.button_parallel_coroutines).apply {
+            setOnClickListener { mainPresenter.onLaunchSeveralRequestsOptionSelected() }
+        }
     }
 
 }

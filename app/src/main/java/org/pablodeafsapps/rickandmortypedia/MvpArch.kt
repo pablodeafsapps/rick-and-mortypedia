@@ -15,6 +15,12 @@ interface Mvp {
 
         fun onClickmeOptionSelected(num: Double)
 
+        fun onLaunchRequestOptionSelected()
+
+        fun onLaunchSeveralRequestsOptionSelected()
+
+        fun onViewPaused()
+
     }
 
 }
