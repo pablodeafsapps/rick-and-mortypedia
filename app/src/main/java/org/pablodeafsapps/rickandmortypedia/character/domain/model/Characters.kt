@@ -1,14 +1,14 @@
-package org.pablodeafsapps.rickandmortypedia.domain.model
+package org.pablodeafsapps.rickandmortypedia.character.domain.model
 
 data class MultipleCharacters(
-    val characters: List<Result>
+    val characters: List<Character>
 )
 
 data class Characters(
-    val results: List<Result>
+    val results: List<Character>
 )
 
-data class Result(
+data class Character(
     val id: Int,
     val name: String,
     val status: String,

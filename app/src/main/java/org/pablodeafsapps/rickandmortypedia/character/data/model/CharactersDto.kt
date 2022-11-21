@@ -1,12 +1,12 @@
-package org.pablodeafsapps.rickandmortypedia.data.model
+package org.pablodeafsapps.rickandmortypedia.character.data.model
 
 data class MultipleCharactersDto(
-    val characters: List<ResultDto>
+    val characters: List<CharacterDto>
 )
 
 data class CharactersDto(
     val info: InfoDto,
-    val results: List<ResultDto>
+    val results: List<CharacterDto>
 )
 
 data class InfoDto(
@@ -16,7 +16,7 @@ data class InfoDto(
     val prev: String
 )
 
-data class ResultDto(
+data class CharacterDto(
     val id: Int,
     val name: String,
     val status: String,
