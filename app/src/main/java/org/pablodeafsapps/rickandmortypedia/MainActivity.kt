@@ -4,15 +4,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
+import org.pablodeafsapps.rickandmortypedia.character.presentation.di.CharactersPresentationModule
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), Mvp.View {
 
-    private lateinit var mainPresenter: Mvp.Presenter
+    @Inject
+    lateinit var mainPresenter: Mvp.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        getCharactersComponent().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainPresenter = MainPresenter(mainView = this)
         initViews()
     }
 
@@ -38,3 +42,7 @@ class MainActivity : AppCompatActivity(), Mvp.View {
     }
 
 }
+
+private fun MainActivity.getCharactersComponent(): CharactersComponent =
+    (application as RickAndMortyApplication).provideCharactersComponentFactory()
+        .create(module = CharactersPresentationModule(this))

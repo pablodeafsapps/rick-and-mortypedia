@@ -1,17 +1,15 @@
 package org.pablodeafsapps.rickandmortypedia
 
 import kotlinx.coroutines.*
-import org.pablodeafsapps.rickandmortypedia.character.data.api.CharactersService
-import org.pablodeafsapps.rickandmortypedia.character.data.model.CharactersDto
-import org.pablodeafsapps.rickandmortypedia.character.data.utils.getRetrofitInstance
 import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 import org.pablodeafsapps.rickandmortypedia.character.domain.usecase.GetAllCharactersUc
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class MainPresenter(val mainView: Mvp.View) : Mvp.Presenter, CoroutineScope {
+class MainPresenter @Inject constructor(
+    val mainView: Mvp.View
+) : Mvp.Presenter, CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
     var greetings: String? = null
@@ -35,6 +33,7 @@ class MainPresenter(val mainView: Mvp.View) : Mvp.Presenter, CoroutineScope {
                 val characters: Characters = getAllCharactersUc.getAllCharacters()
 //                val response: CharactersDto? = charactersService.getAllCharactersList()
                 println(characters.toString())
+                greetings = characters.toString()
             } catch (e: Exception) {
                 println(e.printStackTrace())
             }

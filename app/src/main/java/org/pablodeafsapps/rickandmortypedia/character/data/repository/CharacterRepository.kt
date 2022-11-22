@@ -7,7 +7,7 @@ import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Character
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 
-object RickAndMortyCharacterRepository : DomainLayerContract.DataLayer.CharacterRepository {
+object RickAndMortyCharacterRepository: DomainLayerContract.DataLayer.CharacterRepository {
 
     private val charactersDataSource: CharactersDataSource by lazy { RickAndMortyCharacterDataSource() }
 
