@@ -2,13 +2,12 @@ package org.pablodeafsapps.rickandmortypedia
 
 import kotlinx.coroutines.*
 import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
-import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
-import org.pablodeafsapps.rickandmortypedia.character.domain.usecase.GetAllCharactersUc
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class MainPresenter @Inject constructor(
-    val mainView: Mvp.View
+    private val mainView: Mvp.View,
+    private val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase
 ) : Mvp.Presenter, CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
@@ -16,7 +15,7 @@ class MainPresenter @Inject constructor(
     private var job: Job? = null
 //    private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
 //    private val charactersService: CharactersService by lazy { retrofitInstance.create(CharactersService::class.java) }
-    private val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase by lazy { GetAllCharactersUc() }
+//    private val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase by lazy { GetAllCharactersUc() }
 
     override fun onClickmeOptionSelected(num: Double) {
         greetings = anotherFun()
@@ -29,14 +28,27 @@ class MainPresenter @Inject constructor(
 
     override fun onLaunchRequestOptionSelected() {
         job = launch {
-            try {
-                val characters: Characters = getAllCharactersUc.getAllCharacters()
+
+//            getAllCharactersUc.getAllCharacters().mapCatching {  }
+            getAllCharactersUc.getAllCharacters().fold(
+                onSuccess = { characters ->
+                    println(characters.toString())
+                    greetings = characters.toString()
+                },
+                onFailure = { t ->
+                    println(t.printStackTrace())
+                }
+            )
+
+
+//            try {
+//                val characters: Characters = getAllCharactersUc.getAllCharacters()
 //                val response: CharactersDto? = charactersService.getAllCharactersList()
-                println(characters.toString())
-                greetings = characters.toString()
-            } catch (e: Exception) {
-                println(e.printStackTrace())
-            }
+//                println(characters.toString())
+//                greetings = characters.toString()
+//            } catch (e: Exception) {
+//                println(e.printStackTrace())
+//            }
         }
     }
 

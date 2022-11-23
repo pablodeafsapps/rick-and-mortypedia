@@ -2,21 +2,22 @@ package org.pablodeafsapps.rickandmortypedia.character.data.datasource
 
 import org.pablodeafsapps.rickandmortypedia.character.data.api.CharactersService
 import org.pablodeafsapps.rickandmortypedia.character.data.model.CharactersDto
-import org.pablodeafsapps.rickandmortypedia.character.data.utils.getRetrofitInstance
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 interface CharactersDataSource {
 
-    suspend fun getAllCharactersListResponse(): CharactersDto?
+    suspend fun getAllCharactersListResponse(): Result<CharactersDto?>
 
 }
 
-class RickAndMortyCharacterDataSource : CharactersDataSource {
+class RickAndMortyCharacterDataSource @Inject constructor(
+    private val retrofitInstance: Retrofit
+) : CharactersDataSource {
 
-    private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
+//    private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
 
-    override suspend fun getAllCharactersListResponse(): CharactersDto? =
-        retrofitInstance.create(CharactersService::class.java).getAllCharactersList()
+    override suspend fun getAllCharactersListResponse(): Result<CharactersDto?> =
+        retrofitInstance.create(CharactersService::class.java).getAllCharactersList().runCatching { body() }
 
 }
