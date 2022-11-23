@@ -8,7 +8,9 @@ interface DomainLayerContract {
     interface PresentationLayer {
 
         interface UseCase {
-            suspend fun getAllCharacters(): Characters
+
+            suspend fun getAllCharacters(): Result<Characters>
+
         }
 
     }
@@ -17,7 +19,7 @@ interface DomainLayerContract {
 
         interface CharacterRepository {
 
-            suspend fun getAllCharactersList() : Characters
+            suspend fun getAllCharactersList() : Result<Characters>
 
             suspend fun getAllCharactersListByPage(page: Int) : Characters
 
