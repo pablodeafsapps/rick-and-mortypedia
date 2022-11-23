@@ -15,13 +15,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 class CharactersDataModule {
 
     @Provides
-    fun providesChracterRepository(charactersDataSource: CharactersDataSource) : DomainLayerContract.DataLayer.CharacterRepository =
-        RickAndMortyCharacterRepository.apply {
-            this.charactersDataSource = charactersDataSource
-        }
+    fun providesCharacterRepository(
+        remoteDataSource: CharactersDataSource.Remote,
+        localDataSource: CharactersDataSource.Local
+    ): DomainLayerContract.DataLayer.CharacterRepository = RickAndMortyCharacterRepository.apply {
+        charactersRemoteDataSource = remoteDataSource
+        charactersLocalDataSource = localDataSource
+    }
 
     @Provides
-    fun providesCharactersDataSource(rickAndMortyDataSource: RickAndMortyCharacterDataSource) : CharactersDataSource =
+    fun providesCharactersRemoteDataSource(rickAndMortyDataSource: RickAndMortyCharacterDataSource) : CharactersDataSource.Remote =
+        rickAndMortyDataSource
+
+    @Provides
+    fun providesCharactersLocalDataSource(rickAndMortyDataSource: RickAndMortyCharacterDataSource) : CharactersDataSource.Local =
         rickAndMortyDataSource
 
     @Provides

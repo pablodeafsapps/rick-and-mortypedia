@@ -3,8 +3,8 @@ package org.pablodeafsapps.rickandmortypedia
 import android.app.Application
 import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponentFactoryProvider
 import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
-import org.pablodeafsapps.rickandmortypedia.di.ApplicationComponent
-import org.pablodeafsapps.rickandmortypedia.di.DaggerApplicationComponent
+import org.pablodeafsapps.rickandmortypedia.common.di.ApplicationComponent
+import org.pablodeafsapps.rickandmortypedia.common.di.DaggerApplicationComponent
 
 class RickAndMortyApplication : Application(), CharactersComponentFactoryProvider {
 

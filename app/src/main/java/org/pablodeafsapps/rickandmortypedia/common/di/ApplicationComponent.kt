@@ -1,4 +1,4 @@
-package org.pablodeafsapps.rickandmortypedia.di
+package org.pablodeafsapps.rickandmortypedia.common.di
 
 import dagger.Component
 import org.pablodeafsapps.rickandmortypedia.character.data.repository.RickAndMortyCharacterRepository

@@ -8,13 +8,15 @@ import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 
 object RickAndMortyCharacterRepository: DomainLayerContract.DataLayer.CharacterRepository {
 
-    lateinit var charactersDataSource: CharactersDataSource
+    lateinit var charactersRemoteDataSource: CharactersDataSource.Remote
+    lateinit var charactersLocalDataSource: CharactersDataSource.Local
+
 //    private val charactersDataSource: CharactersDataSource by lazy { RickAndMortyCharacterDataSource() }
 
     override suspend fun getAllCharactersList(): Result<Characters> {
 //        charactersDataSource.getAllCharactersListResponse().toCharacters()
 
-        val result = charactersDataSource.getAllCharactersListResponse()
+        val result = charactersRemoteDataSource.getAllCharactersListResponse()
 
 //        return if (result.isSuccess) {
 //            result.getOrNull()?.toCharacters() ?: Characters(results = emptyList())

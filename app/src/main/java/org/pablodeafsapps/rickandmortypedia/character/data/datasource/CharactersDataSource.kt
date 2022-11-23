@@ -7,13 +7,21 @@ import javax.inject.Inject
 
 interface CharactersDataSource {
 
-    suspend fun getAllCharactersListResponse(): Result<CharactersDto?>
+    interface Remote {
+
+        suspend fun getAllCharactersListResponse(): Result<CharactersDto?>
+
+    }
+
+    interface Local {
+
+    }
 
 }
 
 class RickAndMortyCharacterDataSource @Inject constructor(
     private val retrofitInstance: Retrofit
-) : CharactersDataSource {
+) : CharactersDataSource.Remote, CharactersDataSource.Local {
 
 //    private val retrofitInstance: Retrofit by lazy { getRetrofitInstance(converterFactory = GsonConverterFactory.create()) }
 
