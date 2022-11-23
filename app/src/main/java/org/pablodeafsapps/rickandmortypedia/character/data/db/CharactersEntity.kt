@@ -4,6 +4,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
+data class TestEntity(
+    @PrimaryKey(autoGenerate = true) val uid: Int = 0,
+    val info: String,
+    val results: String
+)
+
+@Entity
 data class CharactersEntity(
     @PrimaryKey val uid: Int,
     val info: InfoEntity,

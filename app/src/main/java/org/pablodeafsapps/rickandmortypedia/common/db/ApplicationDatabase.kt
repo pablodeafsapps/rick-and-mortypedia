@@ -5,11 +5,14 @@ import androidx.room.RoomDatabase
 import org.pablodeafsapps.rickandmortypedia.character.data.db.*
 
 @Database(
-    entities = [ CharactersEntity::class, InfoEntity::class, CharacterEntity::class, OriginEntity::class, LocationEntity::class ],
+//    entities = [ CharactersEntity::class, InfoEntity::class, CharacterEntity::class, OriginEntity::class, LocationEntity::class ],
+    entities = [ TestEntity::class ],
     version = 1
 )
 abstract class ApplicationDatabase : RoomDatabase() {
 
-    abstract fun charactersDao(): CharactersDao
+//    abstract fun charactersDao(): CharactersDao
+
+    abstract fun testDao(): TestDao
 
 }

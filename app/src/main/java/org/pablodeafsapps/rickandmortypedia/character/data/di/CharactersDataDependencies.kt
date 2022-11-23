@@ -1,5 +1,7 @@
 package org.pablodeafsapps.rickandmortypedia.character.data.di
 
+import android.content.Context
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import org.pablodeafsapps.rickandmortypedia.character.data.datasource.CharactersDataSource
@@ -7,12 +9,13 @@ import org.pablodeafsapps.rickandmortypedia.character.data.datasource.RickAndMor
 import org.pablodeafsapps.rickandmortypedia.character.data.repository.RickAndMortyCharacterRepository
 import org.pablodeafsapps.rickandmortypedia.character.data.utils.getRetrofitInstance
 import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
+import org.pablodeafsapps.rickandmortypedia.common.db.ApplicationDatabase
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-class CharactersDataModule {
+class CharactersDataModule(private val applicationContext: Context) {
 
     @Provides
     fun providesCharacterRepository(
@@ -37,5 +40,12 @@ class CharactersDataModule {
 
     @Provides
     fun providesConverterFactory() : Converter.Factory = GsonConverterFactory.create()
+
+    @Provides
+    fun providesRoomDatabaseInstance(): ApplicationDatabase =
+        Room.databaseBuilder(
+            applicationContext,
+            ApplicationDatabase::class.java, "rick-and-morty-db"
+        ).build()
 
 }
