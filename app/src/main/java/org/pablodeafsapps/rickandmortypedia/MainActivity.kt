@@ -46,7 +46,4 @@ class MainActivity : AppCompatActivity(), Mvp.View {
 
 private fun MainActivity.getCharactersComponent(): CharactersComponent =
     (application as RickAndMortyApplication).provideCharactersComponentFactory()
-        .create(
-            presentationModule = CharactersPresentationModule(this),
-            dataModule = CharactersDataModule(applicationContext)
-        )
+        .create(presentationModule = CharactersPresentationModule(this))
