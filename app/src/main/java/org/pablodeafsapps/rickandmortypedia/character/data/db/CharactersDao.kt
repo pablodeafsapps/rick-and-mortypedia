@@ -1,34 +1,21 @@
 package org.pablodeafsapps.rickandmortypedia.character.data.db
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-
-//@Dao
-//interface CharactersDao {
-//
-//    @Query("SELECT * FROM CharactersEntity")
-//    fun getAll(): List<CharactersEntity>
-//
-//    @Insert
-//    fun insertAll(vararg characters: CharactersEntity)
-//
-//    @Delete
-//    fun delete(characters: CharactersEntity)
-//
-//}
+import androidx.room.*
 
 @Dao
-interface TestDao {
+interface CharactersDao {
 
-    @Query("SELECT * FROM TestEntity")
-    fun getAll(): List<TestEntity>
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertPage(page: PageEntity)
 
-    @Insert
-    fun insertAll(vararg test: TestEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertCharacter(character: CharacterEntity)
 
-    @Delete
-    fun delete(test: TestEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertCharacterList(list: List<CharacterEntity>)
+
+    @Transaction
+    @Query("SELECT * FROM PageEntity")
+    suspend fun getPageWithCharacters(): List<PageWithCharacters>
 
 }

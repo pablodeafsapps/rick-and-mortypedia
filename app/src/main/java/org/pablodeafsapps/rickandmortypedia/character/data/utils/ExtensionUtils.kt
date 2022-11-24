@@ -1,5 +1,8 @@
 package org.pablodeafsapps.rickandmortypedia.character.data.utils
 
+import org.pablodeafsapps.rickandmortypedia.character.data.db.CharacterEntity
+import org.pablodeafsapps.rickandmortypedia.character.data.db.LocationEntity
+import org.pablodeafsapps.rickandmortypedia.character.data.db.OriginEntity
 import org.pablodeafsapps.rickandmortypedia.character.data.model.CharacterDto
 import org.pablodeafsapps.rickandmortypedia.character.data.model.CharactersDto
 import org.pablodeafsapps.rickandmortypedia.character.data.model.LocationDto
@@ -35,3 +38,24 @@ private fun List<CharacterDto>.toCharacterList() : List<Character> =
 private fun OriginDto.toBo() : Origin = Origin(name = name, url = url)
 
 private fun LocationDto.toBo() : Location = Location(name = name, url = url)
+
+fun List<CharacterDto>.toEntity() : List<CharacterEntity> =
+    map { dto ->
+        with(dto) {
+            CharacterEntity(
+                id = id,
+                page = 1,
+                name = name,
+                status = status,
+                species = species,
+                type = type,
+                gender = gender,
+                origin = OriginEntity(name = origin.name, url = origin.url),
+                location = LocationEntity(name = location.name, url = location.url),
+                image = image,
+                episode = episode,
+                url = url,
+                created = created
+            )
+        }
+}
