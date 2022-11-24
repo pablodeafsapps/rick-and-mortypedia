@@ -5,30 +5,30 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
-//@Dao
-//interface CharactersDao {
-//
-//    @Query("SELECT * FROM CharactersEntity")
-//    fun getAll(): List<CharactersEntity>
-//
-//    @Insert
-//    fun insertAll(vararg characters: CharactersEntity)
-//
-//    @Delete
-//    fun delete(characters: CharactersEntity)
-//
-//}
+@Dao
+interface CharactersDao {
+
+    @Query("SELECT * FROM character_table")
+    suspend fun getAll(): List<CharacterEntity>
+
+    @Insert
+    suspend fun insertAll(vararg characters: CharacterEntity)
+
+    @Delete
+    suspend fun delete(characters: CharacterEntity)
+
+}
 
 @Dao
 interface TestDao {
 
     @Query("SELECT * FROM TestEntity")
-    fun getAll(): List<TestEntity>
+    suspend fun getAll(): List<TestEntity>
 
     @Insert
-    fun insertAll(vararg test: TestEntity)
+    suspend fun insertAll(vararg test: TestEntity)
 
     @Delete
-    fun delete(test: TestEntity)
+    suspend fun delete(test: TestEntity)
 
 }

@@ -17,7 +17,7 @@ interface CharactersDataSource {
 
     interface Local {
 
-        fun saveData(dto: CharactersDto)
+        suspend fun saveCharacterList(dto: CharactersDto)
 
     }
 
@@ -31,11 +31,11 @@ class RickAndMortyCharacterDataSource @Inject constructor(
     override suspend fun getAllCharactersListResponse(): Result<CharactersDto?> =
         retrofitInstance.create(CharactersService::class.java).getAllCharactersList().runCatching { body() }
 
-    override fun saveData(dto: CharactersDto) {
+    override suspend fun saveCharacterList(dto: CharactersDto) {
         // This line simply logs the size of the 'TestEntity' right before adding a new entry
         println(roomDatabaseInstance.testDao().getAll().size)
         val testEntity: TestEntity = with(dto) {
-            TestEntity(info = dto.info.count.toString(), results = results.toString())
+            TestEntity(info = info.count.toString(), results = results.toString())
         }
         roomDatabaseInstance.testDao().insertAll(testEntity)
     }

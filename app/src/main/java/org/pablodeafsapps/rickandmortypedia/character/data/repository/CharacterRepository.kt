@@ -3,6 +3,8 @@ package org.pablodeafsapps.rickandmortypedia.character.data.repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.pablodeafsapps.rickandmortypedia.character.data.datasource.CharactersDataSource
+import org.pablodeafsapps.rickandmortypedia.character.data.model.CharacterDto
+import org.pablodeafsapps.rickandmortypedia.character.data.model.CharactersDto
 import org.pablodeafsapps.rickandmortypedia.character.data.utils.toCharacters
 import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Character
@@ -15,7 +17,7 @@ object RickAndMortyCharacterRepository: DomainLayerContract.DataLayer.CharacterR
 
     override suspend fun getAllCharactersList(): Result<Characters> {
 
-        val result = charactersRemoteDataSource.getAllCharactersListResponse()
+        val result: Result<CharactersDto?> = charactersRemoteDataSource.getAllCharactersListResponse()
 
 //        return if (result.isSuccess) {
 //            result.getOrNull()?.toCharacters() ?: Characters(results = emptyList())
@@ -28,7 +30,7 @@ object RickAndMortyCharacterRepository: DomainLayerContract.DataLayer.CharacterR
                 Characters(results = emptyList())
             } else {
                 withContext(Dispatchers.IO) {
-                    charactersLocalDataSource.saveData(dto)
+                    charactersLocalDataSource.saveCharacterList(dto)
                 }
                 dto.toCharacters()
             }
