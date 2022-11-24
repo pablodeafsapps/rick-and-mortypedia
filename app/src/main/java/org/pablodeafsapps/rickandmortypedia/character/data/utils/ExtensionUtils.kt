@@ -1,5 +1,8 @@
 package org.pablodeafsapps.rickandmortypedia.character.data.utils
 
+import org.pablodeafsapps.rickandmortypedia.character.data.db.CharacterEntity
+import org.pablodeafsapps.rickandmortypedia.character.data.db.LocationEntity
+import org.pablodeafsapps.rickandmortypedia.character.data.db.OriginEntity
 import org.pablodeafsapps.rickandmortypedia.character.data.model.CharacterDto
 import org.pablodeafsapps.rickandmortypedia.character.data.model.CharactersDto
 import org.pablodeafsapps.rickandmortypedia.character.data.model.LocationDto
@@ -35,3 +38,68 @@ private fun List<CharacterDto>.toCharacterList() : List<Character> =
 private fun OriginDto.toBo() : Origin = Origin(name = name, url = url)
 
 private fun LocationDto.toBo() : Location = Location(name = name, url = url)
+
+fun CharactersDto.toCharactersEntity(): List<CharacterEntity> = results.map { dto ->
+    with(dto) {
+        CharacterEntity(
+            id = id,
+            name = name,
+            status = status,
+            species = species,
+            type = type,
+            gender = gender,
+            origin = origin.toEntity(),
+            location = location.toEntity(),
+            image = image,
+            episode = episode,
+            url = url,
+            created = created
+        )
+    }
+}
+
+private fun OriginDto.toEntity(): OriginEntity =
+    OriginEntity(
+        name = name,
+        url = url
+    )
+
+private fun LocationDto.toEntity(): LocationEntity =
+    LocationEntity(
+        name = name,
+        url = url
+    )
+
+fun List<CharacterEntity>.toCharacters(): Characters =
+    Characters(
+        results = map { entity ->
+            with(entity) {
+                Character(
+                    id = id,
+                    name = name,
+                    status = status,
+                    species = species,
+                    type = type,
+                    gender = gender,
+                    origin = origin.toBo(),
+                    location = location.toBo(),
+                    image = image,
+                    episode = episode,
+                    url = url,
+                    created = created
+                )
+            }
+        }
+    )
+
+private fun OriginEntity.toBo(): Origin =
+    Origin(
+        name = name,
+        url = url
+    )
+
+private fun LocationEntity.toBo(): Location =
+    Location(
+        name = name,
+        url = url
+    )

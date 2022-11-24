@@ -1,6 +1,9 @@
 package org.pablodeafsapps.rickandmortypedia
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
@@ -29,7 +32,6 @@ class MainPresenter @Inject constructor(
     override fun onLaunchRequestOptionSelected() {
         job = launch {
 
-//            getAllCharactersUc.getAllCharacters().mapCatching {  }
             getAllCharactersUc.getAllCharacters().fold(
                 onSuccess = { characters ->
                     println(characters.toString())
