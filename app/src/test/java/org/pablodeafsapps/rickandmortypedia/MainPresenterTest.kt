@@ -1,8 +1,6 @@
 package org.pablodeafsapps.rickandmortypedia
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.*
 import org.junit.After
 import org.junit.Before
@@ -54,7 +52,7 @@ class MainPresenterTest {
         // when
         sut.onClickmeOptionSelected(3.0)
         // then
-        assert(sut.greetings == "Hello")
+        assert(sut.greetings == "Hello!")
     }
 
     @Test
@@ -63,6 +61,7 @@ class MainPresenterTest {
         `when`(sut.getAllCharactersUc.getAllCharacters()).thenReturn(getDummyCharactersEmptyResult())
         // when
         sut.onLaunchRequestOptionSelected()
+        advanceUntilIdle()
         // then
         assert(sut.greetings != null)
     }
