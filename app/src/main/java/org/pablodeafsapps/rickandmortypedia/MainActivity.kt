@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
-import org.pablodeafsapps.rickandmortypedia.character.data.di.CharactersDataModule
 import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 import org.pablodeafsapps.rickandmortypedia.character.presentation.di.CharactersPresentationModule
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity(), Mvp.View {
     }
 
     override fun loadCharacters(data: Characters) {
-        TODO("Not yet implemented")
+        // TODO: access 'RecyclerView' adapter and load 'data'
     }
 
     override fun showErrorMessage(msg: String) {
@@ -40,7 +39,9 @@ class MainActivity : AppCompatActivity(), Mvp.View {
     }
 
     private fun initViews() {
-        val button: Button = findViewById(R.id.button)
+        // TODO: inint 'RecyclerView' using adapter and 'LinearLayoutManager'
+
+        val button: Button = findViewById(R.id.button_load_message)
         button.setOnClickListener { mainPresenter.onClickmeOptionSelected(num = Math.random()) }
 
         val buttonRequest: Button = findViewById(R.id.button_coroutines)
