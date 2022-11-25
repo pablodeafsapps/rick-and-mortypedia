@@ -9,8 +9,8 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class MainPresenter @Inject constructor(
-    private val mainView: Mvp.View,
-    private val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase
+    val mainView: Mvp.View,
+    val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase
 ) : Mvp.Presenter, CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
@@ -30,18 +30,17 @@ class MainPresenter @Inject constructor(
     }
 
     override fun onLaunchRequestOptionSelected() {
-        job = launch {
-
+        job = launch() {
             getAllCharactersUc.getAllCharacters().fold(
                 onSuccess = { characters ->
-                    println(characters.toString())
                     greetings = characters.toString()
+                    mainView.loadCharacters(data = characters)
                 },
                 onFailure = { t ->
                     println(t.printStackTrace())
+                    mainView.showErrorMessage(msg = "Cannot load data")
                 }
             )
-
 
 //            try {
 //                val characters: Characters = getAllCharactersUc.getAllCharacters()

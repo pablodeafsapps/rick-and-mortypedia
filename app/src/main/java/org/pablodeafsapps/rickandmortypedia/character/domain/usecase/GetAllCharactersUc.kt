@@ -8,9 +8,6 @@ class GetAllCharactersUc @Inject constructor(
     private val characterRepository: DomainLayerContract.DataLayer.CharacterRepository
 ) : DomainLayerContract.PresentationLayer.UseCase {
 
-//    private val characterRepository: DomainLayerContract.DataLayer.CharacterRepository
-//            by lazy { RickAndMortyCharacterRepository }
-
     override suspend fun getAllCharacters(): Result<Characters> = characterRepository.getAllCharactersList()
 
 }

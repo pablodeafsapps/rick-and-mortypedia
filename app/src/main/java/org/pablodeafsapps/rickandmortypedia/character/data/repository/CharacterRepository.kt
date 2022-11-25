@@ -3,16 +3,11 @@ package org.pablodeafsapps.rickandmortypedia.character.data.repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.pablodeafsapps.rickandmortypedia.character.data.datasource.CharactersDataSource
-import org.pablodeafsapps.rickandmortypedia.character.data.db.CharacterEntity
-import org.pablodeafsapps.rickandmortypedia.character.data.db.LocationEntity
-import org.pablodeafsapps.rickandmortypedia.character.data.db.OriginEntity
 import org.pablodeafsapps.rickandmortypedia.character.data.utils.toCharacters
 import org.pablodeafsapps.rickandmortypedia.character.data.utils.toCharactersEntity
 import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Character
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
-import org.pablodeafsapps.rickandmortypedia.character.domain.model.Location
-import org.pablodeafsapps.rickandmortypedia.character.domain.model.Origin
 
 object RickAndMortyCharacterRepository: DomainLayerContract.DataLayer.CharacterRepository {
 

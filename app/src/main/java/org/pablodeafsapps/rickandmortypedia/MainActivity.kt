@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.Toast
 import org.pablodeafsapps.rickandmortypedia.character.data.di.CharactersDataModule
 import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
+import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 import org.pablodeafsapps.rickandmortypedia.character.presentation.di.CharactersPresentationModule
 import javax.inject.Inject
 
@@ -28,6 +29,14 @@ class MainActivity : AppCompatActivity(), Mvp.View {
 
     override fun showMessage() {
         Toast.makeText(this, "Button clicked!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun loadCharacters(data: Characters) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showErrorMessage(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
     private fun initViews() {
