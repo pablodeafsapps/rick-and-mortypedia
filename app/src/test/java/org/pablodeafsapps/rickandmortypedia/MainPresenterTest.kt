@@ -1,6 +1,7 @@
 package org.pablodeafsapps.rickandmortypedia
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
 import org.junit.After
 import org.junit.Before
@@ -29,49 +30,38 @@ class MainPresenterTest {
     fun tearDown() {
         Dispatchers.resetMain()
     }
-    @Test
-    fun `When 'click me' option is selected and 'num' greater than 0_5, 'showMessage' is invoke`() {
-        // given
-        val num: Double = 0.6
-        // when
-        sut.onClickmeOptionSelected(num = num)
-        // then
-        verify(sut.mainView).showMessage()
-    }
-    @Test
-    fun `When 'click me' option is selected and 'num' less than or equal 0_5 'showLogMessage' is invoke`() {
-        // given
-        val num: Double = 0.4
-        // when
-        sut.onClickmeOptionSelected(num = num)
-        // then
-        verify(sut.mainView).showLogMessage()
-    }
-    @Test
-    fun `When 'click me' option is selected, 'greetings' is assigned 'Hello'`() {
-        // when
-        sut.onClickmeOptionSelected(3.0)
-        // then
-        assert(sut.greetings == "Hello!")
-    }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `When 'Launch request' option is selected, 'greetings' is updated`() = runTest {
+    fun `When view gets created and the usecase response is successful, 'loadCharacters' is invoked`() = runTest {
         // given
         `when`(sut.getAllCharactersUc.getAllCharacters()).thenReturn(getDummyCharactersEmptyResult())
         // when
-        sut.onLaunchRequestOptionSelected()
+        sut.onViewCreated()
         advanceUntilIdle()
         // then
-        assert(sut.greetings != null)
+        verify(sut.mainView).loadCharacters(getDummyCharactersEmpty())
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `When view gets created and the usecase response fails, 'showMessage' is invoked`() = runTest {
+        // given
+        `when`(sut.getAllCharactersUc.getAllCharacters()).thenReturn(getDummyFailureResult())
+        // when
+        sut.onViewCreated()
+        advanceUntilIdle()
+        // then
+        verify(sut.mainView).showMessage(anyString())
     }
 
     private fun getDummyCharactersEmptyResult() : Result<Characters> =
         Result.success(getDummyCharactersEmpty())
 
     private fun getDummyCharactersEmpty(): Characters =
-        Characters(
-            results = emptyList()
-        )
+        Characters(results = emptyList())
+
+    private fun getDummyFailureResult(): Result<Nothing> =
+        Result.failure(Throwable())
 
 }

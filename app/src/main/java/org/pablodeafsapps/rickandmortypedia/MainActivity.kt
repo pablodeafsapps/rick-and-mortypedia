@@ -3,9 +3,11 @@ package org.pablodeafsapps.rickandmortypedia
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 import org.pablodeafsapps.rickandmortypedia.character.presentation.di.CharactersPresentationModule
+import org.pablodeafsapps.rickandmortypedia.character.presentation.view.CharactersAdapter
 import org.pablodeafsapps.rickandmortypedia.databinding.ActivityMainBinding
 import javax.inject.Inject
 
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity(), Mvp.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         getCharactersComponent().inject(this)
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViews()
         mainPresenter.onViewCreated()
@@ -33,12 +36,14 @@ class MainActivity : AppCompatActivity(), Mvp.View {
     }
 
     override fun loadCharacters(data: Characters) {
-        // TODO: access 'RecyclerView' adapter and load 'data'
+        (binding.rvCharactersData.adapter as? CharactersAdapter)?.updateData(newData = data.results)
     }
 
     private fun initViews() {
-        // TODO: inint 'RecyclerView' using adapter and 'LinearLayoutManager'
-
+        with(binding.rvCharactersData) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = CharactersAdapter()
+        }
     }
 
 }
