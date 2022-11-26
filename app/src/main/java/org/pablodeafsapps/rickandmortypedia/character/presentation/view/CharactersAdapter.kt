@@ -7,6 +7,7 @@ import android.widget.ImageView
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Character
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.pablodeafsapps.rickandmortypedia.R
 
 class CharactersAdapter(
@@ -37,11 +38,9 @@ class CharactersAdapter(
         private val tvExtras: TextView by lazy { itemView.findViewById(R.id.tv_extras) }
 
         fun bindData(character: Character) {
-            // TODO: use 'Glide' or 'Coil' to load the image asynchronously
-//            imgProfile.set...
+            Glide.with(itemView.context).load(character.image).centerCrop().into(imgProfile);
             tvName.text = character.name
             tvExtras.text = "species: ${character.species}, status: ${character.status}"
-
         }
 
     }
