@@ -2,23 +2,28 @@ package org.pablodeafsapps.rickandmortypedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
-import org.pablodeafsapps.rickandmortypedia.character.data.di.CharactersDataModule
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
+import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 import org.pablodeafsapps.rickandmortypedia.character.presentation.di.CharactersPresentationModule
+import org.pablodeafsapps.rickandmortypedia.character.presentation.view.CharactersAdapter
+import org.pablodeafsapps.rickandmortypedia.databinding.ActivityMainBinding
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), Mvp.View {
 
+    private lateinit var binding: ActivityMainBinding
     @Inject
     lateinit var mainPresenter: Mvp.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         getCharactersComponent().inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initViews()
+        mainPresenter.onViewCreated()
     }
 
     override fun onPause() {
@@ -26,19 +31,18 @@ class MainActivity : AppCompatActivity(), Mvp.View {
         mainPresenter.onViewPaused()
     }
 
-    override fun showMessage() {
+    override fun showMessage(msg: String) {
         Toast.makeText(this, "Button clicked!", Toast.LENGTH_SHORT).show()
     }
 
+    override fun loadCharacters(data: Characters) {
+        (binding.rvCharactersData.adapter as? CharactersAdapter)?.updateData(newData = data.results)
+    }
+
     private fun initViews() {
-        val button: Button = findViewById(R.id.button)
-        button.setOnClickListener { mainPresenter.onClickmeOptionSelected(num = Math.random()) }
-
-        val buttonRequest: Button = findViewById(R.id.button_coroutines)
-        buttonRequest.setOnClickListener { mainPresenter.onLaunchRequestOptionSelected() }
-
-        findViewById<Button>(R.id.button_parallel_coroutines).apply {
-            setOnClickListener { mainPresenter.onLaunchSeveralRequestsOptionSelected() }
+        with(binding.rvCharactersData) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = CharactersAdapter()
         }
     }
 
