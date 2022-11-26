@@ -6,24 +6,15 @@ interface Mvp {
 
     interface View {
 
-        fun showMessage()
-
-        fun showLogMessage() {
-        }
+        fun showMessage(msg: String)
 
         fun loadCharacters(data: Characters)
-
-        fun showErrorMessage(msg: String)
 
     }
 
     interface Presenter {
 
-        fun onClickmeOptionSelected(num: Double)
-
-        fun onLaunchRequestOptionSelected()
-
-        fun onLaunchSeveralRequestsOptionSelected()
+        fun onViewCreated()
 
         fun onViewPaused()
 
