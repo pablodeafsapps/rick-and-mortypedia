@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'org.pablodeafsapps.rickandmortypedia'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "org.pablodeafsapps.rickandmortypedia"

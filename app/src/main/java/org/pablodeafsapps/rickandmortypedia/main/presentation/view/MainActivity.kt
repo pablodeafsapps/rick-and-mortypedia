@@ -28,12 +28,17 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, MainContract.V
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initViews()
+        initViews(savedState = savedInstanceState)
     }
 
     override fun onPause() {
         super.onPause()
         mainPresenter.onViewDetached()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt("opened_fragment", binding.bottomNavigationView.selectedItemId)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -52,10 +57,10 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, MainContract.V
         return false
     }
 
-    private fun initViews() {
+    private fun initViews(savedState: Bundle?) {
         with(binding.bottomNavigationView) {
             setOnItemSelectedListener(this@MainActivity)
-            selectedItemId = R.id.characters
+            selectedItemId = savedState?.getInt("opened_fragment") ?: R.id.characters
         }
     }
 

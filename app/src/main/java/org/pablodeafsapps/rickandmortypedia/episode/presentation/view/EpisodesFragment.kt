@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import org.pablodeafsapps.rickandmortypedia.RickAndMortyApplication
@@ -50,14 +48,13 @@ class EpisodesFragment : Fragment(), EpisodesContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        episodesPresenter.onViewCreated()
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 episodesViewModel.episodes.collect { ep ->
                     if (ep != null) { loadEpisodes(data = ep) }
                 }
             }
         }
-        episodesViewModel.onViewCreated()
     }
 
     override fun showMessage(msg: String) {
