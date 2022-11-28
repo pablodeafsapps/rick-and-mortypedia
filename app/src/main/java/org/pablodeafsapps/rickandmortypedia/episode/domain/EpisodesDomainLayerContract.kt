@@ -1,4 +1,4 @@
-package org.pablodeafsapps.rickandmortypedia.episode
+package org.pablodeafsapps.rickandmortypedia.episode.domain
 
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episode
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episodes

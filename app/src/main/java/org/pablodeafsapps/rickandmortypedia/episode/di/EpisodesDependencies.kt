@@ -6,6 +6,7 @@ import org.pablodeafsapps.rickandmortypedia.character.data.di.CharactersDataModu
 import org.pablodeafsapps.rickandmortypedia.character.domain.di.CharactersDomainModule
 import org.pablodeafsapps.rickandmortypedia.character.presentation.di.CharactersPresentationModule
 import org.pablodeafsapps.rickandmortypedia.character.presentation.view.CharactersFragment
+import org.pablodeafsapps.rickandmortypedia.episode.domain.di.EpisodesDomainDependencies
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.di.EpisodesPresentationModule
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.view.EpisodesFragment
 
@@ -16,7 +17,9 @@ interface EpisodesComponentFactoryProvider {
 @Module(subcomponents = [ EpisodesComponent::class ])
 object EpisodesModule
 
-@Subcomponent(modules = [ EpisodesPresentationModule::class ])
+@Subcomponent(modules = [
+    EpisodesPresentationModule::class, EpisodesDomainDependencies::class
+])
 interface EpisodesComponent {
 
     @Subcomponent.Factory
