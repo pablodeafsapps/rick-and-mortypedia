@@ -2,16 +2,16 @@ package org.pablodeafsapps.rickandmortypedia.character.di
 
 import dagger.Module
 import dagger.Subcomponent
-import org.pablodeafsapps.rickandmortypedia.MainActivity
 import org.pablodeafsapps.rickandmortypedia.character.data.di.CharactersDataModule
 import org.pablodeafsapps.rickandmortypedia.character.domain.di.CharactersDomainModule
 import org.pablodeafsapps.rickandmortypedia.character.presentation.di.CharactersPresentationModule
+import org.pablodeafsapps.rickandmortypedia.character.presentation.view.CharactersFragment
 
 interface CharactersComponentFactoryProvider {
     fun provideCharactersComponentFactory() : CharactersComponent.Factory
 }
 
-@Module(subcomponents = [CharactersComponent::class])
+@Module(subcomponents = [ CharactersComponent::class ])
 object CharactersModule
 
 @Subcomponent(modules = [
@@ -26,6 +26,6 @@ interface CharactersComponent {
         ): CharactersComponent
     }
 
-    fun inject(activity: MainActivity)
+    fun inject(fragment: CharactersFragment)
 
 }
