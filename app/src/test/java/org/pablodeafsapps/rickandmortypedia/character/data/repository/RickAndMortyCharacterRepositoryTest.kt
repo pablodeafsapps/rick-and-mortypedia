@@ -1,5 +1,6 @@
 package org.pablodeafsapps.rickandmortypedia.character.data.repository
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -9,10 +10,14 @@ import org.mockito.exceptions.base.MockitoException
 import org.pablodeafsapps.rickandmortypedia.character.data.datasource.CharactersDataSource
 import org.pablodeafsapps.rickandmortypedia.character.data.model.*
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
+import org.pablodeafsapps.rickandmortypedia.common.data.model.InfoDto
+import org.pablodeafsapps.rickandmortypedia.common.data.model.LocationDto
+import org.pablodeafsapps.rickandmortypedia.common.data.model.OriginDto
 
 private const val DEFAULT_INT_VALUE = 0
 private const val DEFAULT_STRING_VALUE = "_"
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class RickAndMortyCharacterRepositoryTest {
 
     private lateinit var sut: RickAndMortyCharacterRepository
@@ -41,7 +46,6 @@ class RickAndMortyCharacterRepositoryTest {
     @Test
     fun `When all characters are requested, and the API response is successful but 'null', the database is queried`() = runTest {
         // given
-//        `when`(sut.charactersRemoteDataSource.getAllCharactersListResponse()).thenReturn(getDummyCharactersDtoNullResult())
         `when`(sut.charactersRemoteDataSource.getAllCharactersListResponse()).thenReturn(getDummyCharactersDtoNullResult())
         `when`(sut.charactersLocalDataSource.fetchCharacterList()).thenReturn(anyList())
         // when

@@ -1,9 +1,10 @@
 package org.pablodeafsapps.rickandmortypedia.character.data.db
 
-import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import org.pablodeafsapps.rickandmortypedia.common.db.LocationEntity
+import org.pablodeafsapps.rickandmortypedia.common.db.OriginEntity
 
 @Entity
 data class TestEntity(
@@ -26,14 +27,4 @@ data class CharacterEntity(
     val episode: List<String>,
     val url: String,
     val created: String
-)
-
-data class OriginEntity(
-    @ColumnInfo(name = "origin_name") val name: String,
-    @ColumnInfo(name = "origin_url") val url: String
-)
-
-data class LocationEntity(
-    @ColumnInfo(name = "location_name") val name: String,
-    @ColumnInfo(name = "location_url") val url: String
 )

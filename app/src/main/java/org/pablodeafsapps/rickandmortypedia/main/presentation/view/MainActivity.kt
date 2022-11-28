@@ -9,6 +9,7 @@ import org.pablodeafsapps.rickandmortypedia.R
 import org.pablodeafsapps.rickandmortypedia.RickAndMortyApplication
 import org.pablodeafsapps.rickandmortypedia.character.presentation.view.CharactersFragment
 import org.pablodeafsapps.rickandmortypedia.databinding.ActivityMainBinding
+import org.pablodeafsapps.rickandmortypedia.episode.presentation.view.EpisodesFragment
 import org.pablodeafsapps.rickandmortypedia.main.MainContract
 import org.pablodeafsapps.rickandmortypedia.main.di.MainComponent
 import org.pablodeafsapps.rickandmortypedia.main.presentation.di.MainPresentationModule
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, MainContract.V
     lateinit var mainPresenter: MainContract.Presenter
     private lateinit var binding: ActivityMainBinding
     private val charactersFragment: Fragment by lazy { CharactersFragment.newInstance() }
-    private val episodesFragment: Fragment by lazy { CharactersFragment.newInstance() }
+    private val episodesFragment: Fragment by lazy { EpisodesFragment.newInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         getApplicationComponent().inject(this)

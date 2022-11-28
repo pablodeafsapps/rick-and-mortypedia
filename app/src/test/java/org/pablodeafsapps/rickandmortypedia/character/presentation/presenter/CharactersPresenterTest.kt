@@ -1,27 +1,29 @@
-package org.pablodeafsapps.rickandmortypedia
+package org.pablodeafsapps.rickandmortypedia.character.presentation.presenter
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
 import org.junit.After
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
-import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
+import org.mockito.Mockito
+import org.pablodeafsapps.rickandmortypedia.character.domain.CharactersDomainLayerContract
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
-import org.pablodeafsapps.rickandmortypedia.main.presentation.presenter.MainPresenter
+import org.pablodeafsapps.rickandmortypedia.character.presentation.CharactersContract
 
-class MainPresenterTest {
+@OptIn(ExperimentalCoroutinesApi::class)
+class CharactersPresenterTest {
 
     // Subject Under org.pablodeafsapps.rickandmortypedia.Test
-    private lateinit var sut: MainPresenter
+    private lateinit var sut: CharactersPresenter
     private lateinit var testScheduler: TestCoroutineScheduler
 
     @Before
     fun setUp() {
-        sut = MainPresenter(
-            mainView = mock(Mvp.View::class.java),
-            getAllCharactersUc = mock(DomainLayerContract.PresentationLayer.UseCase::class.java)
+        sut = CharactersPresenter(
+            charactersView = Mockito.mock(CharactersContract.View::class.java),
+            getAllCharactersUc = Mockito.mock(CharactersDomainLayerContract.PresentationLayer.UseCase::class.java)
         )
         testScheduler = TestCoroutineScheduler()
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
@@ -36,24 +38,23 @@ class MainPresenterTest {
     @Test
     fun `When view gets created and the usecase response is successful, 'loadCharacters' is invoked`() = runTest {
         // given
-        `when`(sut.getAllCharactersUc.getAllCharacters()).thenReturn(getDummyCharactersEmptyResult())
+        Mockito.`when`(sut.getAllCharactersUc.getAllCharacters()).thenReturn(getDummyCharactersEmptyResult())
         // when
         sut.onViewCreated()
         advanceUntilIdle()
         // then
-        verify(sut.mainView).loadCharacters(getDummyCharactersEmpty())
+        Mockito.verify(sut.charactersView).loadCharacters(getDummyCharactersEmpty())
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `When view gets created and the usecase response fails, 'showMessage' is invoked`() = runTest {
         // given
-        `when`(sut.getAllCharactersUc.getAllCharacters()).thenReturn(getDummyFailureResult())
+        Mockito.`when`(sut.getAllCharactersUc.getAllCharacters()).thenReturn(getDummyFailureResult())
         // when
         sut.onViewCreated()
         advanceUntilIdle()
         // then
-        verify(sut.mainView).showMessage(anyString())
+        Mockito.verify(sut.charactersView).showMessage(Mockito.anyString())
     }
 
     private fun getDummyCharactersEmptyResult() : Result<Characters> =

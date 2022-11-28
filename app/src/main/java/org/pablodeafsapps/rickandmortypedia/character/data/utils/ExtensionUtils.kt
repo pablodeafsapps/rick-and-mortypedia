@@ -1,16 +1,12 @@
 package org.pablodeafsapps.rickandmortypedia.character.data.utils
 
 import org.pablodeafsapps.rickandmortypedia.character.data.db.CharacterEntity
-import org.pablodeafsapps.rickandmortypedia.character.data.db.LocationEntity
-import org.pablodeafsapps.rickandmortypedia.character.data.db.OriginEntity
 import org.pablodeafsapps.rickandmortypedia.character.data.model.CharacterDto
 import org.pablodeafsapps.rickandmortypedia.character.data.model.CharactersDto
-import org.pablodeafsapps.rickandmortypedia.character.data.model.LocationDto
-import org.pablodeafsapps.rickandmortypedia.character.data.model.OriginDto
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Character
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
-import org.pablodeafsapps.rickandmortypedia.character.domain.model.Location
-import org.pablodeafsapps.rickandmortypedia.character.domain.model.Origin
+import org.pablodeafsapps.rickandmortypedia.common.utils.toBo
+import org.pablodeafsapps.rickandmortypedia.common.utils.toEntity
 
 fun CharactersDto?.toCharacters() : Characters =
     Characters(results = this?.results?.toCharacterList() ?: emptyList())
@@ -35,10 +31,6 @@ private fun List<CharacterDto>.toCharacterList() : List<Character> =
         }
     }
 
-private fun OriginDto.toBo() : Origin = Origin(name = name, url = url)
-
-private fun LocationDto.toBo() : Location = Location(name = name, url = url)
-
 fun CharactersDto.toCharactersEntity(): List<CharacterEntity> = results.map { dto ->
     with(dto) {
         CharacterEntity(
@@ -57,18 +49,6 @@ fun CharactersDto.toCharactersEntity(): List<CharacterEntity> = results.map { dt
         )
     }
 }
-
-private fun OriginDto.toEntity(): OriginEntity =
-    OriginEntity(
-        name = name,
-        url = url
-    )
-
-private fun LocationDto.toEntity(): LocationEntity =
-    LocationEntity(
-        name = name,
-        url = url
-    )
 
 fun List<CharacterEntity>.toCharacters(): Characters =
     Characters(
@@ -90,16 +70,4 @@ fun List<CharacterEntity>.toCharacters(): Characters =
                 )
             }
         }
-    )
-
-private fun OriginEntity.toBo(): Origin =
-    Origin(
-        name = name,
-        url = url
-    )
-
-private fun LocationEntity.toBo(): Location =
-    Location(
-        name = name,
-        url = url
     )

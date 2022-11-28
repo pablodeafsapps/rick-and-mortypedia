@@ -1,4 +1,4 @@
-package org.pablodeafsapps.rickandmortypedia.character.data.utils
+package org.pablodeafsapps.rickandmortypedia.common.utils
 
 import retrofit2.Converter
 import retrofit2.Retrofit
