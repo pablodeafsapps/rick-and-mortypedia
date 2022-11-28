@@ -7,17 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.launch
 import org.pablodeafsapps.rickandmortypedia.RickAndMortyApplication
 import org.pablodeafsapps.rickandmortypedia.databinding.FragmentDataCollectionBinding
 import org.pablodeafsapps.rickandmortypedia.episode.di.EpisodesComponent
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episodes
-import org.pablodeafsapps.rickandmortypedia.episode.presentation.EpisodesContract
-import org.pablodeafsapps.rickandmortypedia.episode.presentation.di.EpisodesPresentationModule
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.viewmodel.EpisodesViewModel
 import javax.inject.Inject
 
-class EpisodesFragment : Fragment(), EpisodesContract.View {
+//class EpisodesFragment : Fragment(), EpisodesContract.View {
+class EpisodesFragment : Fragment() {
 
     @Inject
 //    lateinit var episodesPresenter: EpisodesContract.Presenter
@@ -46,13 +49,20 @@ class EpisodesFragment : Fragment(), EpisodesContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        episodesPresenter.onViewCreated()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                episodesViewModel.episodes.collect { ep ->
+                    if (ep != null) { loadEpisodes(data = ep) }
+                }
+            }
+        }
     }
 
-    override fun showMessage(msg: String) {
+    private fun showMessage(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
-    override fun loadEpisodes(data: Episodes) {
+    private fun loadEpisodes(data: Episodes) {
         (binding?.rvData?.adapter as? EpisodesAdapter)?.updateData(newData = data.results)
     }
 
@@ -69,6 +79,9 @@ class EpisodesFragment : Fragment(), EpisodesContract.View {
 
 }
 
+//private fun EpisodesFragment.getEpisodesComponent(): EpisodesComponent =
+//    (requireContext().applicationContext as RickAndMortyApplication).provideEpisodesComponentFactory()
+//        .create(presentationModule = EpisodesPresentationModule(this))
+
 private fun EpisodesFragment.getEpisodesComponent(): EpisodesComponent =
-    (requireContext().applicationContext as RickAndMortyApplication).provideEpisodesComponentFactory()
-        .create(presentationModule = EpisodesPresentationModule(this))
+    (requireContext().applicationContext as RickAndMortyApplication).provideEpisodesComponent()

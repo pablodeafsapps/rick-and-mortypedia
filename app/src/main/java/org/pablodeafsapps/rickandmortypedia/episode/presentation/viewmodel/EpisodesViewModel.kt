@@ -23,7 +23,7 @@ class EpisodesViewModel @Inject constructor(
         fetchEpisodesData()
     }
 
-    fun fetchEpisodesData() {
+    private fun fetchEpisodesData() {
         viewModelScope.launch {
             getAllEpisodesUc.getAllEpisodes().onSuccess { episodes ->
                 _episodes.update { episodes }
