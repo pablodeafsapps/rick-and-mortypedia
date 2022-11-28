@@ -2,22 +2,16 @@ package org.pablodeafsapps.rickandmortypedia.character.presentation.di
 
 import dagger.Module
 import dagger.Provides
-import dagger.Subcomponent
-import org.pablodeafsapps.rickandmortypedia.MainActivity
-import org.pablodeafsapps.rickandmortypedia.MainPresenter
-import org.pablodeafsapps.rickandmortypedia.Mvp
-import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
-import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
-import org.pablodeafsapps.rickandmortypedia.character.domain.usecase.GetAllCharactersUc
-import javax.inject.Named
+import org.pablodeafsapps.rickandmortypedia.character.presentation.CharactersContract
+import org.pablodeafsapps.rickandmortypedia.character.presentation.presenter.CharactersPresenter
 
 @Module
-class CharactersPresentationModule(private val mvpView: Mvp.View) {
+class CharactersPresentationModule(private val charactersView: CharactersContract.View) {
 
     @Provides
-    fun providesMvpView() : Mvp.View = mvpView
+    fun providesCharactersView() : CharactersContract.View = charactersView
 
     @Provides
-    fun providesMvpPresenter(mainPresenter: MainPresenter) : Mvp.Presenter = mainPresenter
+    fun providesCharactersPresenter(charactersPresenter: CharactersPresenter) : CharactersContract.Presenter = charactersPresenter
 
 }

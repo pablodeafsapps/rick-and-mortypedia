@@ -9,6 +9,7 @@ import org.junit.Test
 import org.mockito.Mockito.*
 import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
+import org.pablodeafsapps.rickandmortypedia.main.presentation.presenter.MainPresenter
 
 class MainPresenterTest {
 

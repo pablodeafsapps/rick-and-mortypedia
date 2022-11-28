@@ -1,22 +1,16 @@
-package org.pablodeafsapps.rickandmortypedia
-
-import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
+package org.pablodeafsapps.rickandmortypedia.common
 
 interface Mvp {
 
-    interface View {
-
-        fun showMessage(msg: String)
-
-        fun loadCharacters(data: Characters)
-
-    }
+    interface View
 
     interface Presenter {
 
-        fun onViewCreated()
+        var view: View?
 
-        fun onViewPaused()
+        fun onViewDetached() {
+            view = null
+        }
 
     }
 
