@@ -13,14 +13,14 @@ import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 import org.pablodeafsapps.rickandmortypedia.character.presentation.CharactersContract
 import org.pablodeafsapps.rickandmortypedia.character.presentation.di.CharactersPresentationModule
-import org.pablodeafsapps.rickandmortypedia.databinding.FragmentCharactersBinding
+import org.pablodeafsapps.rickandmortypedia.databinding.FragmentDataCollectionBinding
 import javax.inject.Inject
 
 class CharactersFragment : Fragment(), CharactersContract.View {
 
     @Inject
     lateinit var charactersPresenter: CharactersContract.Presenter
-    private var binding: FragmentCharactersBinding? = null
+    private var binding: FragmentDataCollectionBinding? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -29,7 +29,7 @@ class CharactersFragment : Fragment(), CharactersContract.View {
 
     override fun onCreateView(
         inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?
-    ): View = FragmentCharactersBinding.inflate(inflater, parent, false)
+    ): View = FragmentDataCollectionBinding.inflate(inflater, parent, false)
         .also {
             binding = it
             initViews()
@@ -51,11 +51,11 @@ class CharactersFragment : Fragment(), CharactersContract.View {
     }
 
     override fun loadCharacters(data: Characters) {
-        (binding?.rvCharacters?.adapter as? CharactersAdapter)?.updateData(newData = data.results)
+        (binding?.rvData?.adapter as? CharactersAdapter)?.updateData(newData = data.results)
     }
 
     private fun initViews() {
-        with(binding?.rvCharacters) {
+        with(binding?.rvData) {
             this?.layoutManager = LinearLayoutManager(context)
             this?.adapter = CharactersAdapter()
         }
