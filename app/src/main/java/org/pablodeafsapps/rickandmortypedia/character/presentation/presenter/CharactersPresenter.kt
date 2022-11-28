@@ -11,8 +11,8 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class CharactersPresenter @Inject constructor(
-    private val charactersView: CharactersContract.View,
-    private val getAllCharactersUc: CharactersDomainLayerContract.PresentationLayer.UseCase
+    val charactersView: CharactersContract.View,
+    val getAllCharactersUc: CharactersDomainLayerContract.PresentationLayer.UseCase
 ) : CharactersContract.Presenter, CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main

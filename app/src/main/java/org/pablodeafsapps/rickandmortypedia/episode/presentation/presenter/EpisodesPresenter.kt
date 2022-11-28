@@ -11,8 +11,8 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class EpisodesPresenter @Inject constructor(
-    private val episodesView: EpisodesContract.View,
-    private val getAllEpisodesUc: EpisodesDomainLayerContract.PresentationLayer.UseCase
+    val episodesView: EpisodesContract.View,
+    val getAllEpisodesUc: EpisodesDomainLayerContract.PresentationLayer.UseCase
 ) : EpisodesContract.Presenter, CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
