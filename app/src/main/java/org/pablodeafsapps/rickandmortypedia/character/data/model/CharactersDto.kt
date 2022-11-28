@@ -1,5 +1,9 @@
 package org.pablodeafsapps.rickandmortypedia.character.data.model
 
+import org.pablodeafsapps.rickandmortypedia.common.data.model.InfoDto
+import org.pablodeafsapps.rickandmortypedia.common.data.model.LocationDto
+import org.pablodeafsapps.rickandmortypedia.common.data.model.OriginDto
+
 data class MultipleCharactersDto(
     val characters: List<CharacterDto>
 )
@@ -7,13 +11,6 @@ data class MultipleCharactersDto(
 data class CharactersDto(
     val info: InfoDto,
     val results: List<CharacterDto>
-)
-
-data class InfoDto(
-    val count: Int,
-    val pages: Int,
-    val next: String,
-    val prev: String
 )
 
 data class CharacterDto(
@@ -29,14 +26,4 @@ data class CharacterDto(
     val episode: List<String>,
     val url: String,
     val created: String
-)
-
-data class OriginDto(
-    val name: String,
-    val url: String
-)
-
-data class LocationDto(
-    val name: String,
-    val url: String
 )

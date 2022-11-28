@@ -6,7 +6,7 @@ import org.pablodeafsapps.rickandmortypedia.episode.domain.EpisodesDomainLayerCo
 import org.pablodeafsapps.rickandmortypedia.episode.domain.usecase.GetAllEpisodesUc
 
 @Module
-class EpisodesDomainDependencies {
+class EpisodesDomainModule {
 
     @Provides
     fun providesGetAllEpisdodesUc(usecase: GetAllEpisodesUc) : @JvmSuppressWildcards EpisodesDomainLayerContract.PresentationLayer.UseCase = usecase

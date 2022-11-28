@@ -9,21 +9,22 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.pablodeafsapps.rickandmortypedia.RickAndMortyApplication
-import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
-import org.pablodeafsapps.rickandmortypedia.character.presentation.di.CharactersPresentationModule
-import org.pablodeafsapps.rickandmortypedia.character.presentation.view.CharactersFragment
 import org.pablodeafsapps.rickandmortypedia.databinding.FragmentDataCollectionBinding
 import org.pablodeafsapps.rickandmortypedia.episode.di.EpisodesComponent
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episodes
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.EpisodesContract
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.di.EpisodesPresentationModule
+import javax.inject.Inject
 
 class EpisodesFragment : Fragment(), EpisodesContract.View {
 
+    @Inject
+    lateinit var episodesPresenter: EpisodesContract.Presenter
     private var binding: FragmentDataCollectionBinding? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        getEpisodesComponent().inject(this)
     }
 
     override fun onCreateView(
@@ -36,12 +37,13 @@ class EpisodesFragment : Fragment(), EpisodesContract.View {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        episodesPresenter.onViewDestroyed()
         binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getEpisodesComponent().inject(this)
+        episodesPresenter.onViewCreated()
     }
 
     override fun showMessage(msg: String) {

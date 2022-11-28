@@ -10,7 +10,7 @@ import androidx.room.Query
 interface CharactersDao {
 
     @Query("SELECT * FROM character_table")
-    suspend fun getAll(): List<CharacterEntity>
+    suspend fun getAllCharacters(): List<CharacterEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(vararg characters: CharacterEntity)

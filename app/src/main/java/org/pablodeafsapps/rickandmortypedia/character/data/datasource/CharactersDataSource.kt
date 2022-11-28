@@ -2,7 +2,6 @@ package org.pablodeafsapps.rickandmortypedia.character.data.datasource
 
 import org.pablodeafsapps.rickandmortypedia.character.data.api.CharactersService
 import org.pablodeafsapps.rickandmortypedia.character.data.db.CharacterEntity
-import org.pablodeafsapps.rickandmortypedia.character.data.db.TestEntity
 import org.pablodeafsapps.rickandmortypedia.character.data.model.CharactersDto
 import org.pablodeafsapps.rickandmortypedia.common.db.ApplicationDatabase
 import retrofit2.Retrofit
@@ -45,6 +44,6 @@ class RickAndMortyCharacterDataSource @Inject constructor(
     }
 
     override suspend fun fetchCharacterList(): List<CharacterEntity> =
-        roomDatabaseInstance.charactersDao().getAll()
+        roomDatabaseInstance.charactersDao().getAllCharacters()
 
 }

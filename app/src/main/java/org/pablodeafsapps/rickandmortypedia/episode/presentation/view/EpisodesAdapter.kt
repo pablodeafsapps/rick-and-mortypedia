@@ -3,11 +3,8 @@ package org.pablodeafsapps.rickandmortypedia.episode.presentation.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import org.pablodeafsapps.rickandmortypedia.character.domain.model.Character
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import org.pablodeafsapps.rickandmortypedia.R
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episode
 
@@ -34,13 +31,14 @@ class EpisodesAdapter(
 
     inner class EpisodesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val imgProfile: ImageView by lazy { itemView.findViewById(R.id.img_profile) }
         private val tvName: TextView by lazy { itemView.findViewById(R.id.tv_name) }
-        private val tvExtras: TextView by lazy { itemView.findViewById(R.id.tv_extras) }
+        private val tvEpisode: TextView by lazy { itemView.findViewById(R.id.tv_episode) }
+        private val tvAirDate: TextView by lazy { itemView.findViewById(R.id.tv_air_date) }
 
         fun bindData(episode: Episode) {
             tvName.text = episode.name
-            tvExtras.text = "name: ${episode.name}, air date: ${episode.airDate}"
+            tvEpisode.text = episode.episode
+            tvAirDate.text = episode.airDate
         }
 
     }
