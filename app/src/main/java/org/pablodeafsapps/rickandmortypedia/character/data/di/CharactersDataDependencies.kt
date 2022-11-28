@@ -5,7 +5,7 @@ import dagger.Provides
 import org.pablodeafsapps.rickandmortypedia.character.data.datasource.CharactersDataSource
 import org.pablodeafsapps.rickandmortypedia.character.data.datasource.RickAndMortyCharacterDataSource
 import org.pablodeafsapps.rickandmortypedia.character.data.repository.RickAndMortyCharacterRepository
-import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
+import org.pablodeafsapps.rickandmortypedia.character.domain.CharactersDomainLayerContract
 
 @Module
 class CharactersDataModule {
@@ -14,7 +14,7 @@ class CharactersDataModule {
     fun providesCharacterRepository(
         remoteDataSource: CharactersDataSource.Remote,
         localDataSource: CharactersDataSource.Local
-    ): DomainLayerContract.DataLayer.CharacterRepository = RickAndMortyCharacterRepository.apply {
+    ): CharactersDomainLayerContract.DataLayer.CharacterRepository = RickAndMortyCharacterRepository.apply {
         charactersRemoteDataSource = remoteDataSource
         charactersLocalDataSource = localDataSource
     }

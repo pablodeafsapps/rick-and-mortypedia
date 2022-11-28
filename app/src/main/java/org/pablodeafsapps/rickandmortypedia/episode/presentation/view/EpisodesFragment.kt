@@ -8,9 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.pablodeafsapps.rickandmortypedia.RickAndMortyApplication
+import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
+import org.pablodeafsapps.rickandmortypedia.character.presentation.di.CharactersPresentationModule
+import org.pablodeafsapps.rickandmortypedia.character.presentation.view.CharactersFragment
 import org.pablodeafsapps.rickandmortypedia.databinding.FragmentDataCollectionBinding
+import org.pablodeafsapps.rickandmortypedia.episode.di.EpisodesComponent
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episodes
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.EpisodesContract
+import org.pablodeafsapps.rickandmortypedia.episode.presentation.di.EpisodesPresentationModule
 
 class EpisodesFragment : Fragment(), EpisodesContract.View {
 
@@ -35,6 +41,7 @@ class EpisodesFragment : Fragment(), EpisodesContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getEpisodesComponent().inject(this)
     }
 
     override fun showMessage(msg: String) {
@@ -57,3 +64,7 @@ class EpisodesFragment : Fragment(), EpisodesContract.View {
     }
 
 }
+
+private fun EpisodesFragment.getEpisodesComponent(): EpisodesComponent =
+    (requireContext().applicationContext as RickAndMortyApplication).provideEpisodesComponentFactory()
+        .create(presentationModule = EpisodesPresentationModule(this))

@@ -3,7 +3,7 @@ package org.pablodeafsapps.rickandmortypedia.character.domain
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Character
 
-interface DomainLayerContract {
+interface CharactersDomainLayerContract {
 
     interface PresentationLayer {
 

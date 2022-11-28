@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
+import org.pablodeafsapps.rickandmortypedia.character.domain.CharactersDomainLayerContract
 import org.pablodeafsapps.rickandmortypedia.character.presentation.CharactersContract
 import org.pablodeafsapps.rickandmortypedia.common.Mvp
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import kotlin.coroutines.CoroutineContext
 
 class CharactersPresenter @Inject constructor(
     private val charactersView: CharactersContract.View,
-    private val getAllCharactersUc: DomainLayerContract.PresentationLayer.UseCase
+    private val getAllCharactersUc: CharactersDomainLayerContract.PresentationLayer.UseCase
 ) : CharactersContract.Presenter, CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main

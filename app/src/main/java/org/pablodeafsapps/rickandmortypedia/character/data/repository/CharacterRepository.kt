@@ -5,11 +5,11 @@ import kotlinx.coroutines.withContext
 import org.pablodeafsapps.rickandmortypedia.character.data.datasource.CharactersDataSource
 import org.pablodeafsapps.rickandmortypedia.character.data.utils.toCharacters
 import org.pablodeafsapps.rickandmortypedia.character.data.utils.toCharactersEntity
-import org.pablodeafsapps.rickandmortypedia.character.domain.DomainLayerContract
+import org.pablodeafsapps.rickandmortypedia.character.domain.CharactersDomainLayerContract
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Character
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 
-object RickAndMortyCharacterRepository: DomainLayerContract.DataLayer.CharacterRepository {
+object RickAndMortyCharacterRepository: CharactersDomainLayerContract.DataLayer.CharacterRepository {
 
     lateinit var charactersRemoteDataSource: CharactersDataSource.Remote
     lateinit var charactersLocalDataSource: CharactersDataSource.Local
