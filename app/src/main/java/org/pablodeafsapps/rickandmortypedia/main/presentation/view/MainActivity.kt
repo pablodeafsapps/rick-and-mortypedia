@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, MainContract.V
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initViews()
+        initViews(savedState = savedInstanceState)
     }
 
     override fun onPause() {
@@ -36,27 +36,40 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener, MainContract.V
         mainPresenter.onViewDetached()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("opened_fragment", binding.bottomNavigationView.selectedItemId)
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.characters -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, charactersFragment).commit()
+                mainPresenter.onCharactersSelected()
                 return true
             }
             R.id.episodes -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, episodesFragment).commit()
+                mainPresenter.onEpisodesSelected()
                 return true
             }
         }
         return false
     }
 
-    private fun initViews() {
+    private fun initViews(savedState: Bundle?) {
         with(binding.bottomNavigationView) {
             setOnItemSelectedListener(this@MainActivity)
-            selectedItemId = R.id.characters
+            selectedItemId = savedState?.getInt("opened_fragment") ?: R.id.characters
         }
+    }
+
+    override fun replaceWithCharactersFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, charactersFragment).commit()
+    }
+
+    override fun replaceWithEpisodesFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, episodesFragment).commit()
     }
 
 }

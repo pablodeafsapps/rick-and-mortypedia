@@ -2,8 +2,6 @@ package org.pablodeafsapps.rickandmortypedia.episode.presentation.di
 
 import dagger.Module
 import dagger.Provides
-import org.pablodeafsapps.rickandmortypedia.character.presentation.CharactersContract
-import org.pablodeafsapps.rickandmortypedia.character.presentation.presenter.CharactersPresenter
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.EpisodesContract
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.presenter.EpisodesPresenter
 
