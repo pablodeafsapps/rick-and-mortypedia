@@ -14,12 +14,14 @@ import org.pablodeafsapps.rickandmortypedia.episode.di.EpisodesComponent
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episodes
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.EpisodesContract
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.di.EpisodesPresentationModule
+import org.pablodeafsapps.rickandmortypedia.episode.presentation.viewmodel.EpisodesViewModel
 import javax.inject.Inject
 
 class EpisodesFragment : Fragment(), EpisodesContract.View {
 
     @Inject
-    lateinit var episodesPresenter: EpisodesContract.Presenter
+//    lateinit var episodesPresenter: EpisodesContract.Presenter
+    lateinit var episodesViewModel: EpisodesViewModel
     private var binding: FragmentDataCollectionBinding? = null
 
     override fun onAttach(context: Context) {
@@ -37,13 +39,13 @@ class EpisodesFragment : Fragment(), EpisodesContract.View {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        episodesPresenter.onViewDestroyed()
+//        episodesPresenter.onViewDestroyed()
         binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        episodesPresenter.onViewCreated()
+//        episodesPresenter.onViewCreated()
     }
 
     override fun showMessage(msg: String) {

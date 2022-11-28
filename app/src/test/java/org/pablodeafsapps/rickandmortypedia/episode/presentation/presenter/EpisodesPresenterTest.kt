@@ -15,7 +15,6 @@ import org.pablodeafsapps.rickandmortypedia.episode.presentation.EpisodesContrac
 @OptIn(ExperimentalCoroutinesApi::class)
 class EpisodesPresenterTest {
 
-    // Subject Under org.pablodeafsapps.rickandmortypedia.Test
     private lateinit var sut: EpisodesPresenter
     private lateinit var testScheduler: TestCoroutineScheduler
 

@@ -11,11 +11,11 @@ class MainPresenter @Inject constructor(
     override var view: Mvp.View? = mainView
 
     override fun onCharactersSelected() {
-        TODO("Not yet implemented")
+        mainView.replaceWithCharactersFragment()
     }
 
-    override fun onEpisodesPresenter() {
-        TODO("Not yet implemented")
+    override fun onEpisodesSelected() {
+        mainView.replaceWithEpisodesFragment()
     }
 
 }
