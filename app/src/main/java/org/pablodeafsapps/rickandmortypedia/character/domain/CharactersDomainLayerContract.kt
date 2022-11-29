@@ -7,9 +7,10 @@ interface CharactersDomainLayerContract {
 
     interface PresentationLayer {
 
-        interface UseCase {
+        interface UseCase<T> {
 
-            suspend fun getAllCharacters(): Result<Characters>
+            // block: () -> Result<T>
+            suspend operator fun invoke(): Result<T>
 
         }
 

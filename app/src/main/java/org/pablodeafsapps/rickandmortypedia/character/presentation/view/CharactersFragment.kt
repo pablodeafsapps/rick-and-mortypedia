@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.pablodeafsapps.rickandmortypedia.RickAndMortyApplication
 import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
@@ -58,6 +59,16 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         with(binding?.rvData) {
             this?.layoutManager = LinearLayoutManager(context)
             this?.adapter = CharactersAdapter()
+            this?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val layoutManager: LinearLayoutManager? = recyclerView.layoutManager as? LinearLayoutManager?
+                    if (layoutManager?.findLastCompletelyVisibleItemPosition() ==
+                        recyclerView.adapter?.itemCount?.minus(1)) {
+                        charactersPresenter.onEndOfScrollReached()
+                    }
+                }
+            })
         }
     }
 
