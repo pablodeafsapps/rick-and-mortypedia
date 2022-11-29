@@ -16,6 +16,9 @@
 .DS_Store
 /build
 /captures
+**/*.apk
+**/output-metadata.json
+**/google-services.json
 .externalNativeBuild
 .cxx
 local.properties
