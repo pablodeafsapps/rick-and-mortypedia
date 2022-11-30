@@ -1,8 +1,9 @@
 package org.pablodeafsapps.rickandmortypedia.login.domain.usecase
 
+import android.nfc.FormatException
 import kotlinx.coroutines.test.runTest
 
-import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
@@ -22,10 +23,6 @@ class LoginUserWithEmailAndKeypassUcTest {
         sut = LoginUserWithEmailAndKeypassUc(loginRepository = mockLoginRepository)
     }
 
-    @After
-    fun tearDown() {
-    }
-
     @Test
     fun `When 'Email' and 'Keypass' are valid, 'loginUser' is invoked`() = runTest {
         // Given
@@ -37,9 +34,15 @@ class LoginUserWithEmailAndKeypassUcTest {
         Mockito.verify(mockLoginRepository).loginUser(email = validEmail, keypass = validKeypass)
     }
 
-//    @Test
-//    fun `When 'Email' and/or 'Keypass' are not valid, 'Result.failure' is returned`() {
-//
-//    }
+    @Test
+    fun `When 'Email' and-or 'Keypass' are not valid, 'Result failure' is returned`() = runTest {
+        // Given
+        val invalidEmail: Email = Email(value = "whatever")
+        val invalidKeypass: Keypass = Keypass(value = "1231")
+        // When
+        val result: Result<LoginUser> = sut(email = invalidEmail, keypass = invalidKeypass)
+        // Then
+        Assert.assertTrue(result.isFailure && result.exceptionOrNull() is FormatException)
+    }
 
 }
