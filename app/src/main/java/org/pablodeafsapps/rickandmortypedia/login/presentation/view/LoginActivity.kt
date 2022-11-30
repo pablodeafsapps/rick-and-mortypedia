@@ -19,6 +19,8 @@ import org.pablodeafsapps.rickandmortypedia.login.presentation.viewmodel.LoginVi
 import org.pablodeafsapps.rickandmortypedia.main.presentation.view.MainActivity
 import javax.inject.Inject
 
+private const val EMPTY_STRING = ""
+
 class LoginActivity : AppCompatActivity() {
 
     @Inject
@@ -61,10 +63,15 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
             }
         }
+        clearKeypassBox()
     }
 
     private fun navigateToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+    }
+
+    private fun clearKeypassBox() {
+        binding.etKeypass.setText(EMPTY_STRING)
     }
 
 }

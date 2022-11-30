@@ -26,8 +26,15 @@ class LoginViewModel @Inject constructor(
                 _loginUser.value = user
             }.onFailure { th ->
                 th.printStackTrace()
+                _loginUser.value = getDummyLoginUser()
             }
         }
     }
+
+    private fun getDummyLoginUser() =
+        LoginUser(
+            name = "",
+            email = Email(value = "")
+        )
 
 }

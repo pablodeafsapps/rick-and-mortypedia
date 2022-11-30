@@ -1,6 +1,7 @@
 package org.pablodeafsapps.rickandmortypedia.login.domain.usecase
 
 import android.nfc.FormatException
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 
 import org.junit.Assert
@@ -12,6 +13,7 @@ import org.pablodeafsapps.rickandmortypedia.login.domain.model.Email
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.Keypass
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.LoginUser
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class LoginUserWithEmailAndKeypassUcTest {
 
     private lateinit var sut: LoginDomainLayerContract.PresentationLayer.UseCase<LoginUser>

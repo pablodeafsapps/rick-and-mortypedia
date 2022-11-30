@@ -3,8 +3,8 @@ package org.pablodeafsapps.rickandmortypedia.character.data.db
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.pablodeafsapps.rickandmortypedia.common.db.LocationEntity
-import org.pablodeafsapps.rickandmortypedia.common.db.OriginEntity
+import org.pablodeafsapps.rickandmortypedia.common.data.model.db.LocationEntity
+import org.pablodeafsapps.rickandmortypedia.common.data.model.db.OriginEntity
 
 @Entity
 data class TestEntity(

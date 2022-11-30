@@ -1,6 +1,6 @@
-package org.pablodeafsapps.rickandmortypedia.episode.datasource
+package org.pablodeafsapps.rickandmortypedia.episode.data.datasource
 
-import org.pablodeafsapps.rickandmortypedia.common.db.ApplicationDatabase
+import org.pablodeafsapps.rickandmortypedia.common.data.model.db.ApplicationDatabase
 import org.pablodeafsapps.rickandmortypedia.episode.data.api.EpisodesService
 import org.pablodeafsapps.rickandmortypedia.episode.data.db.EpisodeEntity
 import org.pablodeafsapps.rickandmortypedia.episode.data.model.EpisodesDto

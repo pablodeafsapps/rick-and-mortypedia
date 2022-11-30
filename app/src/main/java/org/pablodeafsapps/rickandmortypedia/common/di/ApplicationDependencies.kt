@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import org.pablodeafsapps.rickandmortypedia.common.db.ApplicationDatabase
+import org.pablodeafsapps.rickandmortypedia.common.data.model.db.ApplicationDatabase
 import org.pablodeafsapps.rickandmortypedia.common.utils.getRetrofitInstance
 import retrofit2.Converter
 import retrofit2.Retrofit

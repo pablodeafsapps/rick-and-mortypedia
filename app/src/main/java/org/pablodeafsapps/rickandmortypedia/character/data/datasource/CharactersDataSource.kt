@@ -3,7 +3,7 @@ package org.pablodeafsapps.rickandmortypedia.character.data.datasource
 import org.pablodeafsapps.rickandmortypedia.character.data.api.CharactersService
 import org.pablodeafsapps.rickandmortypedia.character.data.db.CharacterEntity
 import org.pablodeafsapps.rickandmortypedia.character.data.model.CharactersDto
-import org.pablodeafsapps.rickandmortypedia.common.db.ApplicationDatabase
+import org.pablodeafsapps.rickandmortypedia.common.data.model.db.ApplicationDatabase
 import retrofit2.Retrofit
 import javax.inject.Inject
 
