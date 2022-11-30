@@ -4,10 +4,10 @@ import org.pablodeafsapps.rickandmortypedia.character.domain.CharactersDomainLay
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 import javax.inject.Inject
 
-class GetAllCharactersUc @Inject constructor(
+class GetCharactersNextPageUc @Inject constructor(
     private val characterRepository: CharactersDomainLayerContract.DataLayer.CharacterRepository
 ) : CharactersDomainLayerContract.PresentationLayer.UseCase<Characters> {
 
-    override suspend fun invoke(): Result<Characters> = characterRepository.getAllCharactersList()
+    override suspend fun invoke(): Result<Characters> = characterRepository.getCharactersNextPage()
 
 }

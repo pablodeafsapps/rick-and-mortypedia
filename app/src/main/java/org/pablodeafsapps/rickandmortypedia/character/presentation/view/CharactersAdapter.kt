@@ -26,7 +26,7 @@ class CharactersAdapter(
     override fun getItemCount(): Int = data.size
 
     fun updateData(newData: List<Character>) {
-        data.clear()
+//        data.clear()
         data.addAll(newData.toMutableList())
         notifyDataSetChanged()
     }

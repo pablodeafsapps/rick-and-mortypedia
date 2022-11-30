@@ -13,6 +13,8 @@ interface CharactersDataSource {
 
         suspend fun getAllCharactersListResponse(): Result<CharactersDto?>
 
+        suspend fun getCharactersNextPage(page: Int): Result<CharactersDto?>
+
     }
 
     interface Local {
@@ -20,6 +22,8 @@ interface CharactersDataSource {
         suspend fun saveCharacterList(list: List<CharacterEntity>)
 
         suspend fun fetchCharacterList(): List<CharacterEntity>
+
+        suspend fun fetchCharactersNextPage(page: Int): List<CharacterEntity>
 
     }
 
@@ -33,6 +37,9 @@ class RickAndMortyCharacterDataSource @Inject constructor(
     override suspend fun getAllCharactersListResponse(): Result<CharactersDto?> =
         retrofitInstance.create(CharactersService::class.java).getAllCharactersList().runCatching { body() }
 
+    override suspend fun getCharactersNextPage(page: Int): Result<CharactersDto?> =
+        retrofitInstance.create(CharactersService::class.java).getAllCharactersList(page = page).runCatching { body() }
+
     override suspend fun saveCharacterList(list: List<CharacterEntity>) {
         // This line simply logs the size of the 'TestEntity' right before adding a new entry
 //        println(roomDatabaseInstance.testDao().getAll().size)
@@ -45,5 +52,8 @@ class RickAndMortyCharacterDataSource @Inject constructor(
 
     override suspend fun fetchCharacterList(): List<CharacterEntity> =
         roomDatabaseInstance.charactersDao().getAllCharacters()
+
+    override suspend fun fetchCharactersNextPage(page: Int): List<CharacterEntity> =
+        roomDatabaseInstance.charactersDao().getCharactersByPage(page = page)
 
 }

@@ -12,6 +12,7 @@ import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 
 object RickAndMortyCharacterRepository: CharactersDomainLayerContract.DataLayer.CharacterRepository {
 
+    private var nextPage: Int = 1
     lateinit var charactersRemoteDataSource: CharactersDataSource.Remote
     lateinit var charactersLocalDataSource: CharactersDataSource.Local
 
@@ -20,12 +21,37 @@ object RickAndMortyCharacterRepository: CharactersDomainLayerContract.DataLayer.
             charactersRemoteDataSource.getAllCharactersListResponse().map { dto ->
                 dto?.toCharacters()?.also {
                     withContext(Dispatchers.IO) {
-                        charactersLocalDataSource.saveCharacterList(list = dto.toCharactersEntity())
+                        charactersLocalDataSource.saveCharacterList(list = dto.toCharactersEntity(page = nextPage))
+                        nextPage++
                     }
                 } ?: charactersLocalDataSource.fetchCharacterList().toCharacters()
             }
         } catch (e: Exception) {
             Result.success(charactersLocalDataSource.fetchCharacterList().toCharacters())
+        }
+
+    override suspend fun getCharactersNextPage(): Result<Characters> =
+        try {
+            charactersRemoteDataSource.getCharactersNextPage(page = nextPage).map { dto ->
+                dto?.toCharacters()?.also {
+                    withContext(Dispatchers.IO) {
+                        charactersLocalDataSource.saveCharacterList(list = dto.toCharactersEntity(page = nextPage))
+                        nextPage++
+                    }
+                } ?: run {
+                    withContext(Dispatchers.IO) {
+                        charactersLocalDataSource.fetchCharactersNextPage(page = nextPage).toCharacters()
+                            .also { if (it.results.isNotEmpty()) { nextPage++ } }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Result.success(
+                withContext(Dispatchers.IO) {
+                    charactersLocalDataSource.fetchCharactersNextPage(page = nextPage).toCharacters()
+                        .also { if (it.results.isNotEmpty()) { nextPage++ } }
+                }
+            )
         }
 
     override suspend fun getAllCharactersListByPage(page: Int): Characters {

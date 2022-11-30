@@ -17,8 +17,10 @@ interface CharactersContract {
 
        fun onViewCreated()
 
+       fun onEndOfScrollReached()
+
        fun onViewDestroyed()
 
-    }
+   }
 
 }

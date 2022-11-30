@@ -31,10 +31,11 @@ private fun List<CharacterDto>.toCharacterList() : List<Character> =
         }
     }
 
-fun CharactersDto.toCharactersEntity(): List<CharacterEntity> = results.map { dto ->
+fun CharactersDto.toCharactersEntity(page: Int): List<CharacterEntity> = results.map { dto ->
     with(dto) {
         CharacterEntity(
             id = id,
+            page = page,
             name = name,
             status = status,
             species = species,

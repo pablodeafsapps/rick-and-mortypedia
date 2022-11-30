@@ -7,9 +7,10 @@ interface CharactersDomainLayerContract {
 
     interface PresentationLayer {
 
-        interface UseCase {
+        interface UseCase<T> {
 
-            suspend fun getAllCharacters(): Result<Characters>
+            // block: () -> Result<T>
+            suspend operator fun invoke(): Result<T>
 
         }
 
@@ -20,6 +21,8 @@ interface CharactersDomainLayerContract {
         interface CharacterRepository {
 
             suspend fun getAllCharactersList() : Result<Characters>
+
+            suspend fun getCharactersNextPage(): Result<Characters>
 
             suspend fun getAllCharactersListByPage(page: Int) : Characters
 
