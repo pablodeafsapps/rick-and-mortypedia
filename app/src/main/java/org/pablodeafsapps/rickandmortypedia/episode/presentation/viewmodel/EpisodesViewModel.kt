@@ -12,7 +12,7 @@ import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episodes
 import javax.inject.Inject
 
 class EpisodesViewModel @Inject constructor(
-    val getAllEpisodesUc: EpisodesDomainLayerContract.PresentationLayer.UseCase
+    private val getAllEpisodesUc: EpisodesDomainLayerContract.PresentationLayer.UseCase
 ) : ViewModel() {
 
     val episodes: StateFlow<Episodes?>

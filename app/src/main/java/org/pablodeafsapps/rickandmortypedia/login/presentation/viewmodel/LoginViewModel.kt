@@ -13,7 +13,7 @@ import org.pablodeafsapps.rickandmortypedia.login.domain.model.LoginUser
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    val loginUserWithEmailAndKeypassUc: LoginDomainLayerContract.PresentationLayer.UseCase<LoginUser>
+    private val loginUserWithEmailAndKeypassUc: LoginDomainLayerContract.PresentationLayer.UseCase<LoginUser>
 ) : ViewModel() {
 
     val loginUser: StateFlow<LoginUser?>
