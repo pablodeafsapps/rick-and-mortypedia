@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.pablodeafsapps.rickandmortypedia.login.domain.LoginDomainLayerContract
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.Email
@@ -24,7 +23,7 @@ class LoginViewModel @Inject constructor(
     fun onLoginOptionSelected(email: Email, keypass: Keypass) {
         viewModelScope.launch {
             loginUserWithEmailAndKeypassUc.invoke(email = email, keypass = keypass).onSuccess { user ->
-                _loginUser.update { user }
+                _loginUser.value = user
             }.onFailure { th ->
                 th.printStackTrace()
             }

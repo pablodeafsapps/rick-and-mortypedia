@@ -17,7 +17,10 @@ class LoginUserWithEmailAndKeypassUc @Inject constructor(
     override suspend fun invoke(email: Email, keypass: Keypass): Result<LoginUser> =
         withContext(Dispatchers.IO) {
             if (email.isValid() && keypass.isValid()) {
-                loginRepository.loginUser(email = email, keypass = keypass)
+                loginRepository.loginUser(
+                    email = Email(value = email.value.trim()),
+                    keypass = Keypass(value = keypass.value.trim())
+                )
             } else {
                 Result.failure(FormatException("E-mail or/and keypass are incorrect"))
             }

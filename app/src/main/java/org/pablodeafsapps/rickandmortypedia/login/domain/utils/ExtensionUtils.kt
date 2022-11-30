@@ -9,11 +9,11 @@ private const val DEFAULT_STRING_VALUE: String = ""
 
 fun Email.isValid(): Boolean {
     val pattern = """.+@.+\.com""".toRegex()
-    return value.contains(pattern)
+    return value.trim().contains(pattern)
 }
 
 private const val KEYPASS_LENGTH: Int = 5
-fun Keypass.isValid(): Boolean = value.length > KEYPASS_LENGTH
+fun Keypass.isValid(): Boolean = value.trim().length > KEYPASS_LENGTH
 
 fun LoginUserDto.toLoginUser() =
     LoginUser(
