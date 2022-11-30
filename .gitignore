@@ -12,9 +12,13 @@
 /.idea/encodings.xml
 /.idea/jarRepositories.xml
 /.idea/compiler.xml
+/.idea/deploymentTargetDropDown.xml
 .DS_Store
 /build
 /captures
+**/*.apk
+**/output-metadata.json
+**/google-services.json
 .externalNativeBuild
 .cxx
 local.properties
