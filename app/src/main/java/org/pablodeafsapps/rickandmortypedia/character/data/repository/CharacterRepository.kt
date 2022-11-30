@@ -37,10 +37,20 @@ object RickAndMortyCharacterRepository: CharactersDomainLayerContract.DataLayer.
                         charactersLocalDataSource.saveCharacterList(list = dto.toCharactersEntity(page = nextPage))
                         nextPage++
                     }
-                } ?: charactersLocalDataSource.fetchCharactersNextPage(page = nextPage).toCharacters().also { nextPage++ }
+                } ?: run {
+                    withContext(Dispatchers.IO) {
+                        charactersLocalDataSource.fetchCharactersNextPage(page = nextPage).toCharacters()
+                            .also { if (it.results.isNotEmpty()) { nextPage++ } }
+                    }
+                }
             }
         } catch (e: Exception) {
-            Result.success(charactersLocalDataSource.fetchCharactersNextPage(page = nextPage).toCharacters()).also { nextPage++ }
+            Result.success(
+                withContext(Dispatchers.IO) {
+                    charactersLocalDataSource.fetchCharactersNextPage(page = nextPage).toCharacters()
+                        .also { if (it.results.isNotEmpty()) { nextPage++ } }
+                }
+            )
         }
 
     override suspend fun getAllCharactersListByPage(page: Int): Characters {
