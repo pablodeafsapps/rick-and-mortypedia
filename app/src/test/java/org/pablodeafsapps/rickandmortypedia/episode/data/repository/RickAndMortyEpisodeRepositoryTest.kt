@@ -10,7 +10,7 @@ import org.mockito.exceptions.base.MockitoException
 import org.pablodeafsapps.rickandmortypedia.common.data.model.InfoDto
 import org.pablodeafsapps.rickandmortypedia.episode.data.model.EpisodeDto
 import org.pablodeafsapps.rickandmortypedia.episode.data.model.EpisodesDto
-import org.pablodeafsapps.rickandmortypedia.episode.datasource.EpisodesDataSource
+import org.pablodeafsapps.rickandmortypedia.episode.data.datasource.EpisodesDataSource
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episodes
 
 private const val DEFAULT_INT_VALUE = 0

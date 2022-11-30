@@ -20,3 +20,6 @@ fun LoginUserDto.toLoginUser() =
         name = name ?: DEFAULT_STRING_VALUE,
         email = Email(value = email ?: DEFAULT_STRING_VALUE)
     )
+
+fun LoginUser?.isValid(): Boolean =
+    this?.takeIf { it.name.isNotBlank() || it.email.value.isNotBlank() } != null

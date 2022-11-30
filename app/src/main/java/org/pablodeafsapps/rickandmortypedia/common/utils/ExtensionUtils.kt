@@ -4,8 +4,8 @@ import org.pablodeafsapps.rickandmortypedia.character.domain.model.Location
 import org.pablodeafsapps.rickandmortypedia.character.domain.model.Origin
 import org.pablodeafsapps.rickandmortypedia.common.data.model.LocationDto
 import org.pablodeafsapps.rickandmortypedia.common.data.model.OriginDto
-import org.pablodeafsapps.rickandmortypedia.common.db.LocationEntity
-import org.pablodeafsapps.rickandmortypedia.common.db.OriginEntity
+import org.pablodeafsapps.rickandmortypedia.common.data.model.db.LocationEntity
+import org.pablodeafsapps.rickandmortypedia.common.data.model.db.OriginEntity
 
 fun OriginDto.toBo() : Origin = Origin(name = name, url = url)
 

@@ -14,9 +14,12 @@ import org.pablodeafsapps.rickandmortypedia.login.di.LoginComponent
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.Email
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.Keypass
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.LoginUser
+import org.pablodeafsapps.rickandmortypedia.login.domain.utils.isValid
 import org.pablodeafsapps.rickandmortypedia.login.presentation.viewmodel.LoginViewModel
 import org.pablodeafsapps.rickandmortypedia.main.presentation.view.MainActivity
 import javax.inject.Inject
+
+private const val EMPTY_STRING = ""
 
 class LoginActivity : AppCompatActivity() {
 
@@ -53,15 +56,22 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleResult(result: LoginUser?) {
         if (result != null) {
-            navigateToMainActivity()
-        } else {
-            println("Error: no user detected, login failed")
-            Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
+            if (result.isValid()) {
+                navigateToMainActivity()
+            } else {
+                println("Error: no user detected, login failed")
+                Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
+            }
         }
+        clearKeypassBox()
     }
 
     private fun navigateToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+    }
+
+    private fun clearKeypassBox() {
+        binding.etKeypass.setText(EMPTY_STRING)
     }
 
 }

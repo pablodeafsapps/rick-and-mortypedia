@@ -13,9 +13,11 @@ import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
 class CharactersPresenter @Inject constructor(
-    val charactersView: CharactersContract.View,
-    @Named("get_all_characters") val getAllCharactersUc: CharactersDomainLayerContract.PresentationLayer.UseCase<Characters>,
-    @Named("get_characters_next_page") val getCharactersNextPageUc: CharactersDomainLayerContract.PresentationLayer.UseCase<Characters>
+    private val charactersView: CharactersContract.View,
+    @Named("get_all_characters")
+    private val getAllCharactersUc: CharactersDomainLayerContract.PresentationLayer.UseCase<Characters>,
+    @Named("get_characters_next_page")
+    private val getCharactersNextPageUc: CharactersDomainLayerContract.PresentationLayer.UseCase<Characters>
 ) : CharactersContract.Presenter, CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
@@ -26,7 +28,6 @@ class CharactersPresenter @Inject constructor(
 
     override fun onViewCreated() {
         job = launch {
-            // getAllCharactersUc.invoke()
             getAllCharactersUc().onSuccess { characters ->
                 charactersView.loadCharacters(data = characters)
             }.onFailure { th ->

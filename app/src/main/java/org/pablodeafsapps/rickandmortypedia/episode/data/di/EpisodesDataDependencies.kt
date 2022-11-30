@@ -3,8 +3,8 @@ package org.pablodeafsapps.rickandmortypedia.episode.data.di
 import dagger.Module
 import dagger.Provides
 import org.pablodeafsapps.rickandmortypedia.episode.data.repository.RickAndMortyEpisodeRepository
-import org.pablodeafsapps.rickandmortypedia.episode.datasource.EpisodesDataSource
-import org.pablodeafsapps.rickandmortypedia.episode.datasource.RickAndMortyEpisodeDataSource
+import org.pablodeafsapps.rickandmortypedia.episode.data.datasource.EpisodesDataSource
+import org.pablodeafsapps.rickandmortypedia.episode.data.datasource.RickAndMortyEpisodeDataSource
 import org.pablodeafsapps.rickandmortypedia.episode.domain.EpisodesDomainLayerContract
 
 @Module

@@ -2,7 +2,7 @@ package org.pablodeafsapps.rickandmortypedia.episode.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.pablodeafsapps.rickandmortypedia.episode.datasource.EpisodesDataSource
+import org.pablodeafsapps.rickandmortypedia.episode.data.datasource.EpisodesDataSource
 import org.pablodeafsapps.rickandmortypedia.episode.domain.EpisodesDomainLayerContract
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episode
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episodes

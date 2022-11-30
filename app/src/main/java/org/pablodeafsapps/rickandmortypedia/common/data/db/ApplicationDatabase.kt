@@ -1,4 +1,4 @@
-package org.pablodeafsapps.rickandmortypedia.common.db
+package org.pablodeafsapps.rickandmortypedia.common.data.model.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
