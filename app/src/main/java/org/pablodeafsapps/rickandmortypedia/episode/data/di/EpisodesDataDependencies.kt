@@ -8,7 +8,7 @@ import org.pablodeafsapps.rickandmortypedia.episode.datasource.RickAndMortyEpiso
 import org.pablodeafsapps.rickandmortypedia.episode.domain.EpisodesDomainLayerContract
 
 @Module
-class EpisodesDataModule {
+object EpisodesDataModule {
 
     @Provides
     fun providesEpisodeRepository(

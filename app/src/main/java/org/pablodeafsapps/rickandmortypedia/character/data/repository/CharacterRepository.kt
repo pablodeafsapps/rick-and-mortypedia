@@ -1,8 +1,9 @@
 package org.pablodeafsapps.rickandmortypedia.character.data.repository
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.pablodeafsapps.rickandmortypedia.character.data.datasource.CharactersDataSource
+import org.pablodeafsapps.rickandmortypedia.character.data.db.CharacterEntity
+import org.pablodeafsapps.rickandmortypedia.character.data.model.CharactersDto
 import org.pablodeafsapps.rickandmortypedia.character.data.utils.toCharacters
 import org.pablodeafsapps.rickandmortypedia.character.data.utils.toCharactersEntity
 import org.pablodeafsapps.rickandmortypedia.character.domain.CharactersDomainLayerContract
@@ -40,3 +41,5 @@ object RickAndMortyCharacterRepository: CharactersDomainLayerContract.DataLayer.
     }
 
 }
+
+data class MyResult(val name: String?, val status: String)
