@@ -11,6 +11,7 @@ import org.pablodeafsapps.rickandmortypedia.character.domain.model.Characters
 
 object RickAndMortyCharacterRepository: CharactersDomainLayerContract.DataLayer.CharacterRepository {
 
+    private var nextPage: Int = 1
     lateinit var charactersRemoteDataSource: CharactersDataSource.Remote
     lateinit var charactersLocalDataSource: CharactersDataSource.Local
 
@@ -21,6 +22,21 @@ object RickAndMortyCharacterRepository: CharactersDomainLayerContract.DataLayer.
                     withContext(Dispatchers.IO) {
                         charactersLocalDataSource.saveCharacterList(list = dto.toCharactersEntity())
                     }
+                    nextPage++
+                } ?: charactersLocalDataSource.fetchCharacterList().toCharacters()
+            }
+        } catch (e: Exception) {
+            Result.success(charactersLocalDataSource.fetchCharacterList().toCharacters())
+        }
+
+    override suspend fun getCharactersNextPage(): Result<Characters> =
+        try {
+            charactersRemoteDataSource.getCharactersNextPage(page = nextPage).map { dto ->
+                dto?.toCharacters()?.also {
+                    withContext(Dispatchers.IO) {
+                        charactersLocalDataSource.saveCharacterList(list = dto.toCharactersEntity())
+                    }
+                    nextPage++
                 } ?: charactersLocalDataSource.fetchCharacterList().toCharacters()
             }
         } catch (e: Exception) {

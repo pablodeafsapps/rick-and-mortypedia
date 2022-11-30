@@ -13,6 +13,8 @@ interface CharactersDataSource {
 
         suspend fun getAllCharactersListResponse(): Result<CharactersDto?>
 
+        suspend fun getCharactersNextPage(page: Int): Result<CharactersDto?>
+
     }
 
     interface Local {
@@ -32,6 +34,9 @@ class RickAndMortyCharacterDataSource @Inject constructor(
 
     override suspend fun getAllCharactersListResponse(): Result<CharactersDto?> =
         retrofitInstance.create(CharactersService::class.java).getAllCharactersList().runCatching { body() }
+
+    override suspend fun getCharactersNextPage(page: Int): Result<CharactersDto?> =
+        retrofitInstance.create(CharactersService::class.java).getAllCharactersList(page = page).runCatching { body() }
 
     override suspend fun saveCharacterList(list: List<CharacterEntity>) {
         // This line simply logs the size of the 'TestEntity' right before adding a new entry

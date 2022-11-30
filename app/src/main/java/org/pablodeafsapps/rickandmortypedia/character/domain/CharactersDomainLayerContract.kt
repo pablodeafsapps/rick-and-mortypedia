@@ -22,6 +22,8 @@ interface CharactersDomainLayerContract {
 
             suspend fun getAllCharactersList() : Result<Characters>
 
+            suspend fun getCharactersNextPage(): Result<Characters>
+
             suspend fun getAllCharactersListByPage(page: Int) : Characters
 
             suspend fun getCharacterById(id: Int) : Character
