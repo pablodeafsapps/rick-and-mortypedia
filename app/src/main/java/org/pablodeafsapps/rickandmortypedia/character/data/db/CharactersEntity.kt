@@ -16,6 +16,7 @@ data class TestEntity(
 @Entity(tableName = "character_table")
 data class CharacterEntity(
     @PrimaryKey(autoGenerate = false) val id: Int,
+    val page: Int,
     val name: String,
     val status: String,
     val species: String,

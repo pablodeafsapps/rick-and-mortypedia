@@ -20,9 +20,9 @@ object RickAndMortyCharacterRepository: CharactersDomainLayerContract.DataLayer.
             charactersRemoteDataSource.getAllCharactersListResponse().map { dto ->
                 dto?.toCharacters()?.also {
                     withContext(Dispatchers.IO) {
-                        charactersLocalDataSource.saveCharacterList(list = dto.toCharactersEntity())
+                        charactersLocalDataSource.saveCharacterList(list = dto.toCharactersEntity(page = nextPage))
+                        nextPage++
                     }
-                    nextPage++
                 } ?: charactersLocalDataSource.fetchCharacterList().toCharacters()
             }
         } catch (e: Exception) {
@@ -34,13 +34,13 @@ object RickAndMortyCharacterRepository: CharactersDomainLayerContract.DataLayer.
             charactersRemoteDataSource.getCharactersNextPage(page = nextPage).map { dto ->
                 dto?.toCharacters()?.also {
                     withContext(Dispatchers.IO) {
-                        charactersLocalDataSource.saveCharacterList(list = dto.toCharactersEntity())
+                        charactersLocalDataSource.saveCharacterList(list = dto.toCharactersEntity(page = nextPage))
+                        nextPage++
                     }
-                    nextPage++
-                } ?: charactersLocalDataSource.fetchCharacterList().toCharacters()
+                } ?: charactersLocalDataSource.fetchCharactersNextPage(page = nextPage).toCharacters().also { nextPage++ }
             }
         } catch (e: Exception) {
-            Result.success(charactersLocalDataSource.fetchCharacterList().toCharacters())
+            Result.success(charactersLocalDataSource.fetchCharactersNextPage(page = nextPage).toCharacters()).also { nextPage++ }
         }
 
     override suspend fun getAllCharactersListByPage(page: Int): Characters {

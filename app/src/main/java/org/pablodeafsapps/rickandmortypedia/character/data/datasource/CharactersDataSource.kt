@@ -23,6 +23,8 @@ interface CharactersDataSource {
 
         suspend fun fetchCharacterList(): List<CharacterEntity>
 
+        suspend fun fetchCharactersNextPage(page: Int): List<CharacterEntity>
+
     }
 
 }
@@ -50,5 +52,8 @@ class RickAndMortyCharacterDataSource @Inject constructor(
 
     override suspend fun fetchCharacterList(): List<CharacterEntity> =
         roomDatabaseInstance.charactersDao().getAllCharacters()
+
+    override suspend fun fetchCharactersNextPage(page: Int): List<CharacterEntity> =
+        roomDatabaseInstance.charactersDao().getCharactersByPage(page = page)
 
 }
