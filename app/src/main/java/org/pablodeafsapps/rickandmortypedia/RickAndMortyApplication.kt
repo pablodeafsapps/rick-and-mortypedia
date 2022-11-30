@@ -11,7 +11,7 @@ import org.pablodeafsapps.rickandmortypedia.main.di.MainComponent
 import org.pablodeafsapps.rickandmortypedia.main.di.MainComponentFactoryProvider
 
 class RickAndMortyApplication : Application(), MainComponentFactoryProvider,
-    CharactersComponentFactoryProvider, EpisodesComponentProvider {
+    CharactersComponentFactoryProvider, EpisodesComponentFactoryProvider {
 
     private lateinit var appComponent: ApplicationComponent
 
@@ -27,10 +27,10 @@ class RickAndMortyApplication : Application(), MainComponentFactoryProvider,
     override fun provideCharactersComponentFactory(): CharactersComponent.Factory =
         appComponent.charactersComponentFactory()
 
-//    override fun provideEpisodesComponentFactory(): EpisodesComponent.Factory =
-    //        appComponent.episodesComponentFactory()
+    override fun provideEpisodesComponentFactory(): EpisodesComponent.Factory =
+            appComponent.episodesComponentFactory()
 
-    override fun provideEpisodesComponent(): EpisodesComponent =
-        appComponent.episodesComponentFactory().create()
+//    override fun provideEpisodesComponent(): EpisodesComponent =
+//        appComponent.episodesComponentFactory().create()
 
 }

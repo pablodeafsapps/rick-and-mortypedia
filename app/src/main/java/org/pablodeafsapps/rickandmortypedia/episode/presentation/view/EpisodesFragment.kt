@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import org.pablodeafsapps.rickandmortypedia.RickAndMortyApplication
 import org.pablodeafsapps.rickandmortypedia.databinding.FragmentDataCollectionBinding
 import org.pablodeafsapps.rickandmortypedia.episode.di.EpisodesComponent
 import org.pablodeafsapps.rickandmortypedia.episode.domain.model.Episodes
+import org.pablodeafsapps.rickandmortypedia.episode.presentation.di.EpisodesPresentationModule
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.viewmodel.EpisodesViewModel
 import javax.inject.Inject
 
@@ -23,8 +22,14 @@ import javax.inject.Inject
 class EpisodesFragment : Fragment() {
 
     @Inject
+    lateinit var episodesViewModelProvider: EpisodesViewModel.Provider
+//    @Inject
 //    lateinit var episodesPresenter: EpisodesContract.Presenter
-    lateinit var episodesViewModel: EpisodesViewModel
+//    lateinit var episodesViewModel: EpisodesViewModel
+    private val episodesViewModel: EpisodesViewModel by lazy {
+        ViewModelProvider(requireActivity(), episodesViewModelProvider)[EpisodesViewModel::class.java]
+    }
+//    private val episodesViewModel: EpisodesViewModel by viewModels { episodesViewModelProvider }
     private var binding: FragmentDataCollectionBinding? = null
 
     override fun onAttach(context: Context) {
@@ -84,4 +89,6 @@ class EpisodesFragment : Fragment() {
 //        .create(presentationModule = EpisodesPresentationModule(this))
 
 private fun EpisodesFragment.getEpisodesComponent(): EpisodesComponent =
-    (requireContext().applicationContext as RickAndMortyApplication).provideEpisodesComponent()
+    (requireContext().applicationContext as RickAndMortyApplication)
+        .provideEpisodesComponentFactory()
+        .create(presentationModule = EpisodesPresentationModule(requireActivity()))

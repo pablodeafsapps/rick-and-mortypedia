@@ -1,21 +1,16 @@
 package org.pablodeafsapps.rickandmortypedia
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import org.pablodeafsapps.rickandmortypedia.databinding.ActivityLoginBinding
-import org.pablodeafsapps.rickandmortypedia.databinding.ActivityMainBinding
 import org.pablodeafsapps.rickandmortypedia.main.presentation.view.MainActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -52,11 +47,12 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(intent)
                             }
                             .onFailure {
-                                Toast.makeText(this@LoginActivity, "Firebase error", Toast.LENGTH_SHORT).show()
+                                withContext(Dispatchers.Main) {
+                                    Toast.makeText(this@LoginActivity, "Firebase error", Toast.LENGTH_SHORT).show()
+                                }
                             }
                     } catch(e: Exception) {
                         withContext(Dispatchers.Main) {
-                            println(e.message)
                             Toast.makeText(this@LoginActivity, e.message, Toast.LENGTH_SHORT).show()
                         }
                     }
