@@ -8,20 +8,25 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
+import org.pablodeafsapps.rickandmortypedia.RickAndMortyApplication
 import org.pablodeafsapps.rickandmortypedia.databinding.ActivityLoginBinding
+import org.pablodeafsapps.rickandmortypedia.login.di.LoginComponent
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.Email
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.Keypass
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.LoginUser
 import org.pablodeafsapps.rickandmortypedia.login.presentation.viewmodel.LoginViewModel
 import org.pablodeafsapps.rickandmortypedia.main.presentation.view.MainActivity
+import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
+    @Inject
     lateinit var loginViewModel: LoginViewModel
 
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        getLoginComponent().inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -31,8 +36,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initViews() {
         binding.btnLogin.setOnClickListener {
-            val email: Email = Email(value = binding.etEmail.text.toString())
-            val keypass: Keypass = Keypass(value = binding.etKeypass.text.toString())
+            val email = Email(value = binding.etEmail.text.toString())
+            val keypass = Keypass(value = binding.etKeypass.text.toString())
             loginViewModel.onLoginOptionSelected(email = email, keypass = keypass)
         }
     }
@@ -60,3 +65,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
 }
+
+private fun LoginActivity.getLoginComponent(): LoginComponent =
+    (application as RickAndMortyApplication).providesLoginComponent()

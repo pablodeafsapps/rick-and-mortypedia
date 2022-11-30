@@ -6,6 +6,7 @@ import kotlinx.coroutines.tasks.await
 import org.pablodeafsapps.rickandmortypedia.login.data.model.LoginUserDto
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.Email
 import org.pablodeafsapps.rickandmortypedia.login.domain.model.Keypass
+import javax.inject.Inject
 
 interface LoginDataSource {
 
@@ -13,7 +14,7 @@ interface LoginDataSource {
 
 }
 
-class FirebaseAuthDataSource(
+class FirebaseAuthDataSource @Inject constructor(
     private val fbAuthInstance: FirebaseAuth
 ) : LoginDataSource {
 

@@ -1,17 +1,20 @@
 package org.pablodeafsapps.rickandmortypedia
 
 import android.app.Application
-import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponentFactoryProvider
 import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponent
-import org.pablodeafsapps.rickandmortypedia.common.di.*
+import org.pablodeafsapps.rickandmortypedia.character.di.CharactersComponentFactoryProvider
+import org.pablodeafsapps.rickandmortypedia.common.di.ApplicationComponent
+import org.pablodeafsapps.rickandmortypedia.common.di.DaggerApplicationComponent
+import org.pablodeafsapps.rickandmortypedia.common.di.UtilsModule
 import org.pablodeafsapps.rickandmortypedia.episode.di.EpisodesComponent
-import org.pablodeafsapps.rickandmortypedia.episode.di.EpisodesComponentFactoryProvider
 import org.pablodeafsapps.rickandmortypedia.episode.di.EpisodesComponentProvider
+import org.pablodeafsapps.rickandmortypedia.login.di.LoginComponent
+import org.pablodeafsapps.rickandmortypedia.login.di.LoginComponentProvider
 import org.pablodeafsapps.rickandmortypedia.main.di.MainComponent
 import org.pablodeafsapps.rickandmortypedia.main.di.MainComponentFactoryProvider
 
 class RickAndMortyApplication : Application(), MainComponentFactoryProvider,
-    CharactersComponentFactoryProvider, EpisodesComponentProvider {
+    CharactersComponentFactoryProvider, EpisodesComponentProvider, LoginComponentProvider {
 
     private lateinit var appComponent: ApplicationComponent
 
@@ -27,10 +30,13 @@ class RickAndMortyApplication : Application(), MainComponentFactoryProvider,
     override fun provideCharactersComponentFactory(): CharactersComponent.Factory =
         appComponent.charactersComponentFactory()
 
-//    override fun provideEpisodesComponentFactory(): EpisodesComponent.Factory =
+//    override fun providesEpisodesComponentFactory(): EpisodesComponent.Factory =
     //        appComponent.episodesComponentFactory()
 
-    override fun provideEpisodesComponent(): EpisodesComponent =
+    override fun providesEpisodesComponent(): EpisodesComponent =
         appComponent.episodesComponentFactory().create()
+
+    override fun providesLoginComponent(): LoginComponent =
+        appComponent.loginComponentFactory().create()
 
 }

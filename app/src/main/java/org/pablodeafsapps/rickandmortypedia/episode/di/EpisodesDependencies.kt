@@ -7,11 +7,11 @@ import org.pablodeafsapps.rickandmortypedia.episode.domain.di.EpisodesDomainModu
 import org.pablodeafsapps.rickandmortypedia.episode.presentation.view.EpisodesFragment
 
 interface EpisodesComponentProvider {
-    fun provideEpisodesComponent() : EpisodesComponent
+    fun providesEpisodesComponent(): EpisodesComponent
 }
 
 interface EpisodesComponentFactoryProvider {
-    fun provideEpisodesComponentFactory() : EpisodesComponent.Factory
+    fun providesEpisodesComponentFactory() : EpisodesComponent.Factory
 }
 
 @Module(subcomponents = [ EpisodesComponent::class ])

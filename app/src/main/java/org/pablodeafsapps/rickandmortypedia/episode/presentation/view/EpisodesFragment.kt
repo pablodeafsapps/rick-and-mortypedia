@@ -84,4 +84,4 @@ class EpisodesFragment : Fragment() {
 //        .create(presentationModule = EpisodesPresentationModule(this))
 
 private fun EpisodesFragment.getEpisodesComponent(): EpisodesComponent =
-    (requireContext().applicationContext as RickAndMortyApplication).provideEpisodesComponent()
+    (requireContext().applicationContext as RickAndMortyApplication).providesEpisodesComponent()
